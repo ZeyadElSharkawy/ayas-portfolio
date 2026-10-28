@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+/*
+ * Atelier design tokens.
+ * Site palette: warm beige base, forest green as the primary accent, warm orange for highlights,
+ * rust brown for earthy details (the thread), deep burgundy for dark accents and contrast.
+ * Role tokens (beige, cream, ink, thread…) are what components use; they map onto the palette.
+ * Each project also carries its own palette in content/projects/*.ts (theme.palette).
+ */
+@theme {
+  /* Palette */
+  --color-forest: #2f5643;
+  --color-orange: #e69e52;
+  --color-rust: #9e4f2e;
+  --color-burgundy: #572530;
+
+  /* Roles */
+  --color-beige: #f4e2cc; /* page and room background */
+  --color-cream: #fbf4ea; /* raised surfaces: cards, panels */
+  --color-sand: #eacfae; /* fabric panels, quiet fills */
+  --color-clay: #d9be9c; /* grey-box 3D */
+  --color-ink: #2b1a1d; /* text: near-black burgundy */
+  --color-ink-soft: #6e4f4a; /* secondary text, 5.8:1 on beige */
+  --color-thread: #9e4f2e; /* stitches, cursor trail, small details (rust) */
+  --color-thread-light: #e69e52;
+  --color-brass: #b08d57;
+  --color-seam: rgb(87 37 48 / 0.18);
+
+  --font-display: var(--font-fraunces), "Times New Roman", serif;
+  --font-sans: var(--font-instrument), system-ui, sans-serif;
+  --font-arabic: var(--font-alexandria), var(--font-instrument), sans-serif;
+
+  --text-display: clamp(3rem, 2rem + 5vw, 7.5rem);
+  --text-display--line-height: 0.92;
+  --text-headline: clamp(2rem, 1.5rem + 2.2vw, 3.5rem);
+  --text-headline--line-height: 1.02;
+
+  --ease-thread: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes hoop-sway {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes snow-fall {
+  to {
+    transform: translate3d(18px, 105vh, 0);
+  }
+}
+
+@keyframes thread-run {
+  to {
+    stroke-dashoffset: -11;
+  }
+}
+
+@keyframes stitch-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* An SVG stroke drawn in, for shapes with pathLength="1". */
+@keyframes draw-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* In Honor of Our Women: the hanging banner moving in a draught. */
+@keyframes banner-sway {
+  0%,
+  100% {
+    transform: rotateY(-4deg) rotateZ(0.5deg);
+  }
+  50% {
+    transform: rotateY(4deg) rotateZ(-0.5deg);
+  }
+}
+
+@keyframes needle-bob {
+  50% {
+    transform: translate(0, -5px);
+  }
+}
+
+/* Identity Breakdown: marquee bulbs chasing, and film grain. */
+@keyframes bulb-chase {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-6%, 4%); }
+  50% { transform: translate(5%, -3%); }
+  75% { transform: translate(-3%, -6%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes stub-fall {
+  to {
+    transform: translate(40px, 140px) rotate(28deg);
+    opacity: 0;
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-beige);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-forest);
+    color: var(--color-cream);
+  }
+
+  :focus-visible {
+    outline: 2px dashed var(--color-forest);
+    outline-offset: 3px;
+  }
+
+  [lang="ar"] {
+    font-family: var(--font-arabic);
+  }
+}
+
+/*
+ * Stitch page transition (components/motif/StitchPage.tsx): the old page closes into a vertical
+ * seam, a running stitch holds the centre, and the new page opens out of it.
+ */
+::view-transition {
+  pointer-events: none;
+  /* Behind the page snapshots: beige cloth with the seam's rust stitch down the middle. */
+  background:
+    linear-gradient(to bottom, var(--color-thread) 55%, transparent 55%) center / 2px 14px repeat-y,
+    var(--color-beige);
+}
+::view-transition-old(root) {
+  display: none;
+}
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-group(.stitch) {
+  animation: none;
+}
+::view-transition-old(.stitch) {
+  animation: stitch-close 300ms var(--ease-thread) both;
+}
+::view-transition-new(.stitch) {
+  animation: stitch-open 420ms var(--ease-thread) 220ms both;
+}
+@keyframes stitch-close {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 50% 0 50%);
+  }
+}
+@keyframes stitch-open {
+  from {
+    clip-path: inset(0 50% 0 50%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* The needle replaces the system cursor only on fine pointers, and only while it is mounted. */
+html.has-needle,
+html.has-needle * {
+  cursor: none !important;
+}
+
+@layer components {
+  /* Running stitch: a dashed thread line, used for dividers and underlines. */
+  .stitch {
+    background-image: linear-gradient(to right, currentColor 55%, transparent 55%);
+    background-size: 12px 1.5px;
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    height: 1.5px;
+  }
+
+  /* Link underline that stitches in from the left on hover. */
+  .stitch-link {
+    background-image: linear-gradient(to right, var(--color-thread) 55%, transparent 55%);
+    background-size: 10px 1.5px;
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    padding-bottom: 3px;
+    clip-path: inset(0 0 0 0);
+    transition: background-size 0.3s var(--ease-thread);
+  }
+  .stitch-link:hover {
+    background-size: 6px 1.5px;
+  }
+
+  /* Small-caps label used for room names and section kinds. */
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
