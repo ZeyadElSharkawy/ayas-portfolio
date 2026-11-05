@@ -14,12 +14,6 @@ export const culturalEchoes: Project = {
     { label: 'Technique', value: 'Khayamiya appliqué' },
     { label: 'Shot in', value: 'Historic Cairo' },
   ],
-  theme: {
-    palette: ['#1F5B45', '#E89A2C', '#C2531F', '#5A1F33', '#F6E3CF'],
-    motif: 'Turquoise arched doorways of old Cairo, khayamiya appliqué panels, and the oud, tabla and qanun icons from her poster border.',
-    interaction:
-      'Open a turquoise arched door to reveal the whole project. Khayamiya panels stitch themselves together as you scroll, and the instrument icons play a short phrase on hover (sound is opt-in).',
-  },
   cover: { kind: 'image', id: 'front', alt: 'Saffron vest over a teal top and wide teal trousers, standing in a stone archway in historic Cairo' },
   hero: { kind: 'image', id: 'side-2', alt: 'Profile on a Cairo rooftop at golden hour, wearing an oversized red and cream fabric headwrap' },
   sections: [

@@ -8,58 +8,46 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# Aya's Portfolio — "The Atelier"
+# Aya's Portfolio
 
-Fashion portfolio site: a persistent 3D atelier hub (React Three Fiber + drei) with per-project rooms, prerendered project pages, and a Node media pipeline. Next.js 16 App Router, React 19, Tailwind 4, strict TypeScript.
+Fashion portfolio for Aya Hafez, aimed at internship recruiters. Quiet, editorial design: one page that previews all her work (an index of project titles beside the work, with an Outcome / Process switch), and a project page per project told in five chapters. Next.js 16 App Router, React 19, Tailwind 4, strict TypeScript, fully static.
 
-**Read `PLAN.md` before non-trivial work** — it is the project log: decisions made, per-phase status, current design, and open questions for Aya.
+**Read `PLAN.md` before non-trivial work.** Its top section is the current design log; everything under "Archive" describes the earlier 3D-atelier concept (kept on `main`), except §1, which is still the best summary of the content. The design sketches are in `design/sketches/` (open `index.html`); the site follows Concept C.
 
 ## Commands
 
 ```sh
 npm run dev
 npm run build                # production build (Turbopack)
-npx tsc --noEmit             # typecheck (no dedicated script)
+npx tsc --noEmit             # typecheck (no dedicated script; run a build or `next dev` first so PageProps/LayoutProps exist)
 npm run lint
 npm run check:content        # run after editing content/: validates media refs, lists unused assets and open questions
 npm run media                # _source/ → public/media/ + content/media.generated.json (needs _source/, which is git-ignored)
 npm run media -- --project=<slug> --only=images,documents,videos --force
-npm run media:signature      # after `npm run media`: crops renders, traces stitch paths
-npm run icons                # after editing app/icon.svg: regenerates favicon.ico, apple + PWA icons
 ```
 
-No test suite, no CI, and the project is not a git repository yet. Verify changes with `lint`, `tsc --noEmit`, and `build` (plus `check:content` for content edits).
+No test suite and no CI. Verify changes with `lint`, `tsc --noEmit` and `build` (plus `check:content` for content edits).
 
 ## Content and media
 
 - Copy lives in `content/projects/*.ts` (plain typed data, one file per project), plus `content/about.ts` and `content/cv.ts`. Media is referenced by id (`MediaRef`) and resolved against `content/media.generated.json` via `lib/media.ts`; unknown ids **throw** (deliberate typo guard). If the manifest is missing, run `npm run media`.
-- `content/media.generated.json` and `content/signature.generated.json` are generated — never edit by hand. The source-file → project mapping (page ranges, video crops, posters) lives in `scripts/media/config.mjs`.
-- All copy is `status: 'draft'` until Aya reviews it; per-project `questions` arrays hold open items (listed by `check:content`). Don't mark anything approved or invent final copy.
+- `content/media.generated.json` is generated; never edit it by hand. The source-file → project mapping (page ranges, video crops, posters) lives in `scripts/media/config.mjs`.
+- Sections keep the booklet structure (`SectionKind`); `lib/chapters.ts` maps them to the five chapters (Outcome, Why, Research, Development, Reflection). A section's `chapter` field overrides the default. Reflection is Aya's to write and stays hidden until `reflection` is set.
+- All copy is `status: 'draft'` until Aya reviews it; per-project `questions` arrays (and `aboutQuestions`) hold open items. Don't mark anything approved or invent final copy.
+- Cultural Echoes: the booklet file is named "do not use these pics". Use its diagram, moodboard and sketch pages only, not the photos in it, until Aya says otherwise.
 
-## Next.js 16 quirks (cacheComponents is on)
+## Rendering rules
 
-- Pages that await `params` must do it inside `<Suspense>`; the project body streams behind a loading placeholder. Because of that, `/work/<unknown>` intentionally returns 200 with the not-found UI and `noindex`; other unknown paths 404.
-- `SITE_URL` (falls back to localhost) drives canonical URLs, OG, sitemap and JSON-LD at build time via `lib/site.ts`. Unset until the domain is chosen.
-- `/style` is an internal style tile, `noindex`, disallowed in `app/robots.ts`.
+- Everything is prerendered. `cacheComponents` is off; `/work/[slug]` uses `generateStaticParams` with `dynamicParams = false`, so unknown slugs 404.
+- Client components must not import `lib/media.ts` (it pulls in the ~40 KB gzipped manifest). Resolve media on the server and pass plain data, as `lib/folio.ts` does for the home page; client code may use `lib/media-urls.ts` and `components/media/Picture.tsx`.
+- `SITE_URL` (falls back to localhost) drives canonical URLs and the sitemap via `lib/site.ts`. Unset until the domain is chosen.
 
-## Bundle and runtime rules
+## Design rules
 
-- Client components must import media URL helpers from `lib/media-urls.ts`, **not** `lib/media.ts` — the latter imports the ~40 KB gzipped manifest and ships it to every page showing a photo (this regression already happened once).
-- All sound is synthesised with Web Audio (`lib/sound.ts`); there are no audio files. Sound is off by default.
-
-## 3D hub
-
-- drei's `<Html>` crashes the scene on unmount under React 19. Labels are plain HTML positioned by per-frame projection — don't reintroduce `<Html>`.
-- Dev-only frame stepping for background tabs: `window.__hub.step(n)`, `__hub.snap(n)`, `__hub.unsnap()` (dev builds only; `components/hub/Scene.tsx`).
-- Stations, positions and camera framing: `lib/hub/stations.ts`, `components/hub/Scene.tsx`, props in `components/hub/props.tsx`. Deep links: `/?room=<station>`, `/?room=atelier-floor&slide=<slug>`.
-- Screenshot quirk in this environment: at 1.25× DPR only the top-left 80% of the viewport is captured; use `__hub.snap` to inspect the real frame.
-
-## Design state
-
-- Current palette is PLAN.md §11 (supersedes the §9 colours); tokens live in `app/globals.css`. No dark mode, deliberately.
-- The stylised primitive look (Aya character, themed sets) is a settled decision — don't swap in downloaded realistic models.
-- Every signature interaction (`components/signature/`) must respect `prefers-reduced-motion`, work by keyboard, and have no horizontal overflow at 375 px.
-- Satori OG cards need static WOFF/TTF fonts (`assets/fonts/`), not the variable fonts `next/font` loads.
+- Tokens live in `app/globals.css` (`paper`, `ink`, `ink-2`, `ink-3`, `line`, `tint`, `accent`). Instrument Serif for display, Inter for text, Noto Naskh Arabic for Arabic. Light only, deliberately.
+- CV and Contact stay in the header on every page; the footer is the contact block (`#contact`).
+- Motion is opt-in via `motion-safe:`; everything works by keyboard; no horizontal overflow at 375 px.
+- Screenshot quirk in this environment: at 1.25× DPR only the top-left 80% of the viewport is captured.
 
 ## Ignored paths that matter
 

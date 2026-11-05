@@ -22,8 +22,13 @@ export type SectionKind =
   | 'film'
   | 'context';
 
+/** The five chapters every project page is told in (see lib/chapters.ts for the default mapping). */
+export type Chapter = 'outcome' | 'why' | 'research' | 'development' | 'reflection';
+
 export interface Section {
   kind: SectionKind;
+  /** Overrides the chapter the section kind maps to by default. */
+  chapter?: Chapter;
   title: string;
   body?: string[];
   /** Aya's own Arabic text, where her booklet has it. */
@@ -39,24 +44,20 @@ export interface Project {
   category: CategoryId;
   /** Short line under the title. */
   tagline: string;
-  /** One paragraph for cards, the Index view and meta descriptions. */
+  /** One paragraph for the index, project intro and meta descriptions. */
   summary: string;
   year?: number;
   client?: string;
   facts: { label: string; value: string }[];
-  /** Art direction for this project's world (see PLAN.md §2). */
-  theme: {
-    palette: string[];
-    motif: string;
-    interaction: string;
-  };
-  /** Used on cards and in the 3D hub. */
+  /** Shown first in the index's outcome view. */
   cover: MediaRef;
   /** First thing seen on the project page. */
   hero: MediaRef;
   sections: Section[];
-  /** Full booklet/deck shown in the flip-book. */
+  /** Full booklet or deck, for the "every page" view. */
   booklet?: { doc: string; title: string };
+  /** What worked and what she'd change. Aya writes this; the chapter is hidden until she does. */
+  reflection?: string[];
   credits: { role: string; name: string }[];
   /** Copy is drafted from Aya's booklets until she has reviewed it. */
   status: 'draft' | 'approved';
@@ -67,7 +68,6 @@ export interface Project {
 export interface Category {
   id: CategoryId;
   title: string;
-  /** Name of the department in the 3D atelier. */
-  room: string;
-  description: string;
+  /** Short label shown next to each project in the index. */
+  label: string;
 }

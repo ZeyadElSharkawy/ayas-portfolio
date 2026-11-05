@@ -14,12 +14,6 @@ export const clueStyling: Project = {
     { label: 'Dates', value: 'Aug – Sep 2026' },
     { label: 'Edits', value: 'Beachwear, loungewear, new this week' },
   ],
-  theme: {
-    palette: ['#E9DCC9', '#C9B79C', '#2B2B2B', '#F7F3EE', '#8A6A4F'],
-    motif: 'Sunlit sand-coloured walls, hard shadows, a clean editorial grid.',
-    interaction:
-      'An editorial lightbox with a loupe that magnifies styling details, plus a 3D phone that scrolls through her shots live on clue.eg.',
-  },
   cover: { kind: 'image', id: 'img-9039', alt: 'Model in a black off-shoulder top with a statement belt against a sand-coloured wall' },
   hero: { kind: 'image', id: 'img-9118', alt: 'Model in sunglasses and a sage shirt tied with a printed scarf, leaning into sunlight' },
   sections: [

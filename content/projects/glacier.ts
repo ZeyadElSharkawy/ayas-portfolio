@@ -13,11 +13,6 @@ export const glacier: Project = {
     { label: 'Techniques', value: 'Slashing, digital machine embroidery, cast silver-plated jewellery' },
     { label: 'Shot at', value: 'Sun City Mall ice rink, Cairo' },
   ],
-  theme: {
-    palette: ['#0F2A5C', '#2E5BA8', '#7FD3E6', '#E8EEF8', '#FFFFFF'],
-    motif: 'Ice cracks and snowflakes on a frozen, pale-blue surface.',
-    interaction: 'A short ice-breaking animation reveals the looks automatically; snowflakes drift as the statement appears.',
-  },
   cover: { kind: 'image', id: 'img-4437', alt: 'A young skater in the white look gliding on the ice with one leg extended' },
   hero: { kind: 'image', id: 'img-4572', alt: 'The skater in the dark-blue look, arm raised gracefully on the ice rink' },
   sections: [

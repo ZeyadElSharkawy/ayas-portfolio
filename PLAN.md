@@ -1,5 +1,28 @@
 # Aya Hafez — Portfolio Plan
 
+## Redesign (branch `redesign`, started 30 Oct 2026)
+
+A new site from scratch; the 3D atelier below stays on `main` as the archive.
+
+**Decisions**
+- Audience: internship recruiters. Tone: quiet and editorial.
+- Research-to-outcome for every project, plus one page that previews all of her work; the process is there for whoever wants to go deeper.
+- Layout: Concept C, "index and folio" (sketches in `design/sketches/`). Home page: a large serif list of project titles beside the work, with an Outcome / Process switch. Mobile: one card per project, same switch.
+- Project page: hero, facts, then five chapters (Outcome, Why, Research, Development, Reflection) with a sticky chapter list. Each image carries its garment note.
+- CV download and Contact are in the header on every page.
+- Kept from the first build: the media pipeline, processed media, and the copy drafted from her booklets. Dropped: all 3D, sound, cursor and signature interactions.
+
+**Status:** home, project pages, About/CV, 404, robots and sitemap are built and verified (lint, typecheck, build, 375 px check).
+
+**Next**
+- Lightbox for images and booklet pages; an "every page" view for each booklet.
+- Open Graph images, favicon, and a PDF portfolio download.
+- Copy review with Aya, including the home-page statement and the Reflection chapters (`aboutQuestions` and the per-project `questions`).
+
+---
+
+# Archive: the 3D atelier concept
+
 Working title: **The Atelier** (a Cairo fashion house in 3D)
 
 ## 1. What the content tells us

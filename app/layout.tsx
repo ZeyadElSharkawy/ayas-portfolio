@@ -1,59 +1,56 @@
 import type { Metadata, Viewport } from 'next';
-import { Alexandria, Fraunces, Instrument_Sans } from 'next/font/google';
-import { NeedleCursor } from '@/components/cursor/NeedleCursor';
-import { SoundLinks } from '@/components/site/Sound';
-import { openGraphBase, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/site';
+import { Inter, Instrument_Serif, Noto_Naskh_Arabic } from 'next/font/google';
+import { SiteFooter, SiteHeader } from '@/components/site/Chrome';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/site';
 import './globals.css';
 
-const fraunces = Fraunces({
-  variable: '--font-fraunces',
+const serif = Instrument_Serif({
+  variable: '--font-instrument-serif',
   subsets: ['latin'],
-  axes: ['opsz', 'SOFT'],
+  weight: '400',
   style: ['normal', 'italic'],
 });
 
-const instrument = Instrument_Sans({
-  variable: '--font-instrument',
+const sans = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
 });
 
-const alexandria = Alexandria({
-  variable: '--font-alexandria',
-  subsets: ['arabic', 'latin'],
-  // Arabic appears in titles and quotes, rarely first on screen: load it when used, not up front.
+const naskh = Noto_Naskh_Arabic({
+  variable: '--font-naskh',
+  subsets: ['arabic'],
+  // Arabic appears only in a few titles and quotes: load it when used, not up front.
   preload: false,
 });
 
 export const metadata: Metadata = {
-  // Absolute base for canonical and Open Graph URLs: set SITE_URL once the domain is decided.
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: SITE_TITLE,
-    template: '%s · Aya Hafez',
-  },
+  title: { default: SITE_TITLE, template: '%s · Aya Hafez' },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
-  authors: [{ name: 'Aya Hafez', url: SITE_URL }],
-  creator: 'Aya Hafez',
-  keywords: ['Aya Hafez', 'fashion designer', 'fashion design portfolio', 'CLO3D', 'digital fashion', 'fashion styling', 'Cairo', 'Berlin', 'machine embroidery'],
+  authors: [{ name: 'Aya Hafez' }],
   alternates: { canonical: '/' },
-  openGraph: { ...openGraphBase, title: SITE_TITLE, description: SITE_DESCRIPTION, url: '/' },
-  twitter: { card: 'summary_large_image' },
+  openGraph: { siteName: SITE_NAME, locale: 'en_GB', type: 'website', title: SITE_TITLE, description: SITE_DESCRIPTION, url: '/' },
   formatDetection: { telephone: false },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#F4E2CC',
+  themeColor: '#f5f2ec',
   colorScheme: 'light',
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${instrument.variable} ${alexandria.variable} h-full`}>
-      <body className="min-h-full">
-        {children}
-        <NeedleCursor />
-        <SoundLinks />
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${naskh.variable}`}>
+      <body className="min-h-dvh flex flex-col">
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50 focus:bg-paper focus:px-3 focus:py-2">
+          Skip to content
+        </a>
+        <SiteHeader />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter />
       </body>
     </html>
   );

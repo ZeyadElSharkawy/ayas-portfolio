@@ -14,12 +14,6 @@ export const arabia: Project = {
     { label: 'Virtual fabrics', value: 'Linen, chiffon, gabardine, cotton poplin' },
     { label: 'Outputs', value: 'Renders, technical drawings, 2D patterns, turntables, runway animation' },
   ],
-  theme: {
-    palette: ['#7A1020', '#EFE6D2', '#5B3A1E', '#C9A66B', '#2B1A12'],
-    motif: 'Arabic calligraphy as print and fabric map; maroon and cream.',
-    interaction:
-      'Real 3D garments (GLB exported from CLO3D) you can orbit. Swatch buttons swap fabrics live, a before/after slider compares the avatar, and a toggle flips between the 2D pattern and the 3D garment.',
-  },
   cover: { kind: 'page', doc: 'deck', n: 26, alt: 'The three digital looks side by side on a maroon background' },
   hero: { kind: 'page', doc: 'deck', n: 9, alt: 'Runway renders of Look 1: cream calligraphy shirt over brown trousers' },
   sections: [
@@ -112,7 +106,6 @@ export const arabia: Project = {
   ],
   status: 'draft',
   questions: [
-    'Can she export the three garments from CLO3D as GLB (or OBJ + textures)? This unlocks the 3D viewer.',
     'Higher-resolution renders than the deck pages, if she has them.',
     'The rendered runway videos are only 480×720. Are there larger exports?',
   ],

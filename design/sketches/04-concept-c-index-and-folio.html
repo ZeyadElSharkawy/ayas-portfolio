@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept C: index and folio</title>
+<link rel="stylesheet" href="sketch.css">
+<style>
+.it{display:flex;gap:8px;align-items:baseline;cursor:pointer;padding:3px 0;color:var(--text-muted);transition:color .2s}
+.it.on,.it:hover{color:var(--text-primary)}
+.seg{display:inline-flex;border:0.5px solid var(--border-strong);border-radius:99px;overflow:hidden}
+.seg button{border:0;font-size:11px;padding:3px 10px;background:none;color:var(--text-secondary)}
+.seg button.on{background:var(--surface-1);color:var(--text-primary)}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="index.html">← All sketches</a>
+<h1>Concept C: index and folio</h1>
+<p class="lede">Hover a title; switch between outcome and process. This is the chosen direction.</p>
+<div class="duo">
+<div class="fr" style="padding:14px 18px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sv" style="font-size:15px">Aya Hafez</span><span class="mu">Work &nbsp; About &nbsp; CV ↓ &nbsp; Contact</span></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;margin-top:20px">
+<div id="ix"></div>
+<div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px"><span class="mu" id="ct">Cultural Echoes · outcome</span><span class="seg"><button class="on" id="bo">Outcome</button><button id="bp">Process</button></span></div>
+<div id="pane"></div>
+</div>
+</div>
+</div>
+<div class="fr" style="padding:10px;align-self:start">
+<div style="display:flex;justify-content:space-between"><span class="sv" style="font-size:12px">Aya Hafez</span><span class="mu">Menu</span></div>
+<div style="display:flex;gap:10px;margin:12px 0 8px;white-space:nowrap;overflow:hidden;font-size:11px"><span style="color:var(--text-primary);border-bottom:1px solid var(--text-primary)">Echoes</span><span class="mu">Carina</span><span class="mu">Honor</span><span class="mu">Glacier</span></div>
+<div class="ph" style="aspect-ratio:3/4"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:5px"><div class="ph" style="aspect-ratio:1"></div><div class="ph" style="aspect-ratio:1"></div></div>
+<div class="mu" style="margin-top:8px;text-align:center">Outcome · Process</div>
+</div>
+</div>
+</main>
+<script>
+const P=['Cultural Echoes','Carina Arabesque','In Honor of Our Women','Glacier','Into Her Skin','Arabia','Identity Breakdown','Clue'];
+let a=0,proc=false;
+const ix=document.getElementById('ix');
+P.forEach((p,i)=>{const d=document.createElement('div');d.className='it'+(i?'':' on');
+d.innerHTML=`<span style="font-size:11px">0${i+1}</span><span class="sv" style="font-size:19px;line-height:1.15">${p}</span>`;
+d.onmouseenter=d.onclick=()=>{a=i;ix.querySelectorAll('.it').forEach((e,j)=>e.classList.toggle('on',j===i));draw()};ix.appendChild(d)});
+function draw(){
+document.getElementById('ct').textContent=P[a]+' · '+(proc?'process':'outcome');
+document.getElementById('pane').innerHTML=proc
+?['Why','Research','Development','Outcome','Reflection'].map((c,j)=>`<div style="display:grid;grid-template-columns:74px 1fr;gap:8px;align-items:center;margin-bottom:6px"><span style="font-size:11px;color:${j===2?'var(--text-primary)':'var(--text-secondary)'}">${c}</span><div style="display:grid;grid-template-columns:repeat(${j===2?4:3},1fr);gap:4px">${'<div class="ph" style="aspect-ratio:1"></div>'.repeat(j===2?4:3)}</div></div>`).join('')
+:`<div class="ph" style="aspect-ratio:4/5"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px"><div class="ph" style="aspect-ratio:3/4"></div><div class="ph" style="aspect-ratio:3/4"></div></div>`;
+document.getElementById('bo').classList.toggle('on',!proc);document.getElementById('bp').classList.toggle('on',proc)}
+document.getElementById('bo').onclick=()=>{proc=false;draw()};
+document.getElementById('bp').onclick=()=>{proc=true;draw()};
+draw();
+</script>
+</body>
+</html>

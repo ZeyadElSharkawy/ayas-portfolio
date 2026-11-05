@@ -12,11 +12,6 @@ export const identityBreakdown: Project = {
     { label: 'Software', value: 'CLO3D' },
     { label: 'Process', value: 'Identity analysis → moodboard → illustration → 3D' },
   ],
-  theme: {
-    palette: ['#8C0F1E', '#E0115F', '#F7A8C4', '#1A0A0D', '#F2E6E8'],
-    motif: 'A red-velvet curtain opening onto a vivid, personal digital fashion story.',
-    interaction: 'A brief curtain reveal opens directly onto the project and its design process.',
-  },
   cover: { kind: 'page', doc: 'deck', n: 10, alt: 'CLO3D avatar in a black jacket and long maroon skirt' },
   hero: { kind: 'page', doc: 'deck', n: 14, alt: "Final choice: Salma's movie outfit rendered in a red cinema setting" },
   sections: [
@@ -81,7 +76,6 @@ export const identityBreakdown: Project = {
   questions: [
     'Course name, year and supervisors.',
     'Is Salma happy to be named and pictured (the deck has her photo)?',
-    'A GLB export of the final look, for the cinema-screen scene.',
     'Any CLO runway or turntable video for this look?',
   ],
 };

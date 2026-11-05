@@ -13,12 +13,6 @@ export const intoHerSkin: Project = {
     { label: 'Process', value: 'Illustrator + CLO3D digital prototype, three fittings' },
     { label: 'Techniques', value: 'Print design, draping, pleating' },
   ],
-  theme: {
-    palette: ['#9C97D6', '#3E5BC4', '#F5E15A', '#D7E84B', '#D4A63A'],
-    motif: 'Golden aerial hoops: every page of her booklet is framed inside one.',
-    interaction:
-      'Content lives inside 3D aerial hoops you drag to spin. A fitting timeline runs from Fitting 1 to Fitting 3, and the interview plays inside a hoop.',
-  },
   cover: { kind: 'page', doc: 'booklet', n: 38, alt: 'Shahenda inside the aerial hoop in the printed blue bodysuit with lime mesh drapes' },
   hero: { kind: 'page', doc: 'booklet', n: 44, alt: 'Shahenda seated in the hoop, the lime mesh draped across her body' },
   sections: [

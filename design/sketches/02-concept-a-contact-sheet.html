@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept A: contact sheet</title>
+<link rel="stylesheet" href="sketch.css">
+<style>
+.row{display:grid;grid-template-columns:22px 104px minmax(0,1fr);gap:10px;align-items:center;padding:8px 0;border-top:0.5px solid var(--border);cursor:pointer}
+.strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.strip .ph{aspect-ratio:3/4}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="index.html">← All sketches</a>
+<h1>Concept A: contact sheet</h1>
+<p class="lede">Click a row to open its process in place.</p>
+<div class="duo">
+<div class="fr" style="padding:14px 18px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="sv" style="font-size:15px">Aya Hafez</span><span class="mu">Work &nbsp; About &nbsp; CV ↓ &nbsp; Contact</span></div>
+<div class="sv" style="font-size:26px;line-height:1.15;margin:22px 0 18px">Heritage,<br>translated into form.</div>
+<div id="rows"></div>
+</div>
+<div class="fr" style="padding:10px;align-self:start">
+<div style="display:flex;justify-content:space-between"><span class="sv" style="font-size:12px">Aya Hafez</span><span class="mu">Menu</span></div>
+<div class="sv" style="font-size:16px;line-height:1.15;margin:14px 0 10px">Heritage, translated into form.</div>
+<div id="mrows"></div>
+</div>
+</div>
+</main>
+<script>
+const P=[['Cultural Echoes','craft'],['Carina Arabesque','craft'],['In Honor of Our Women','installation'],['Glacier','craft'],['Into Her Skin','craft'],['Arabia','CLO 3D'],['Identity Breakdown','CLO 3D'],['Clue','styling']];
+let open=1;
+function draw(){
+const r=document.getElementById('rows');r.innerHTML='';
+P.forEach((p,i)=>{
+const d=document.createElement('div');d.className='row';
+d.innerHTML=`<span class="mu">0${i+1}</span><div><div style="font-size:12px;color:${i===open?'var(--text-primary)':'var(--text-secondary)'}">${p[0]}</div><div class="mu">${p[1]}</div></div><div class="strip">${'<div class="ph"></div>'.repeat(7)}</div>`;
+d.onclick=()=>{open=open===i?-1:i;draw()};r.appendChild(d);
+if(i===open){const x=document.createElement('div');x.style.cssText='padding:4px 0 14px 32px';
+x.innerHTML=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">${['Why','Research','Development','Outcome','Reflection'].map((c,j)=>`<span class="chip ${j===0?'on':''}">${c}</span>`).join('')}</div><div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:6px"><div class="ph" style="aspect-ratio:4/3"></div><div class="ph"></div><div style="display:grid;gap:6px"><div class="ph"></div><div class="ph"></div></div></div><div style="margin-top:8px;display:grid;gap:4px;width:60%"><div class="ln"></div><div class="ln" style="width:80%"></div></div>`;
+r.appendChild(x)}});
+document.getElementById('mrows').innerHTML=P.slice(0,5).map((p,i)=>`<div style="border-top:0.5px solid var(--border);padding:6px 0"><div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">0${i+1} ${p[0]}</div><div style="display:grid;grid-template-columns:repeat(3,1fr) 0.4fr;gap:3px">${'<div class="ph" style="aspect-ratio:3/4"></div>'.repeat(4)}</div></div>`).join('');
+}
+draw();
+</script>
+</body>
+</html>

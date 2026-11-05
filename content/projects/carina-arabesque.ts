@@ -16,17 +16,12 @@ export const carinaArabesque: Project = {
     { label: 'Technique', value: 'Machine embroidery' },
     { label: 'Shot in', value: 'Historic Cairo' },
   ],
-  theme: {
-    palette: ['#4E5B3A', '#E9E7A6', '#5B3A2B', '#1F6F78', '#E2752C'],
-    motif: 'Mashrabiya screens and interlacing arabesque motifs.',
-    interaction:
-      'A mashrabiya screen slides open to reveal each look. An arabesque motif assembles itself from its elements, and a colourway switcher recolours the garment through her proposed SKUs.',
-  },
   cover: { kind: 'image', id: 'img-8458', alt: 'Mother and daughter on old stone steps in matching olive embroidered jackets and pale lemon skirts' },
   hero: { kind: 'image', id: 'img-8437', alt: 'Mother and daughter in front of a carved wooden mashrabiya window, in matching olive jackets and lemon skirts' },
   sections: [
     {
       kind: 'context',
+      chapter: 'why',
       title: 'The brand',
       body: [
         "The collection starts from Carina's brand DNA: its principles, its customers and the campaigns it is known for. Its customer is the Carina mother, who shops for herself and her children together.",
