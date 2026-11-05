@@ -47,3 +47,6 @@ next-env.d.ts
 # media pipeline: cache, and videos (hosted on R2 once deployed)
 /.cache/
 /public/media/**/video/
+
+# font archive (the fonts the site uses are in assets/fonts/)
+/Proxima-Nova-*.zip

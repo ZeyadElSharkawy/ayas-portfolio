@@ -41,7 +41,7 @@ export default function About() {
   return (
     <div className="mx-auto grid max-w-[1440px] gap-16 px-4 pt-12 sm:px-8 md:pt-20">
       <header className="grid gap-8 lg:grid-cols-12">
-        <h1 className="font-serif text-[clamp(52px,8vw,128px)] leading-[0.92] tracking-tight lg:col-span-5">About</h1>
+        <h1 className="font-display text-[clamp(52px,8vw,128px)] leading-[0.92] lg:col-span-5">About</h1>
         <div className="grid max-w-prose gap-4 text-[17px] leading-relaxed lg:col-span-7 lg:pt-4">
           {aboutText.map((p) => <p key={p}>{p}</p>)}
           <p>

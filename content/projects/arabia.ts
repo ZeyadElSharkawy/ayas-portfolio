@@ -14,6 +14,7 @@ export const arabia: Project = {
     { label: 'Virtual fabrics', value: 'Linen, chiffon, gabardine, cotton poplin' },
     { label: 'Outputs', value: 'Renders, technical drawings, 2D patterns, turntables, runway animation' },
   ],
+  palette: ['#7A1020', '#EFE6D2', '#5B3A1E', '#C9A66B', '#2B1A12'],
   cover: { kind: 'page', doc: 'deck', n: 26, alt: 'The three digital looks side by side on a maroon background' },
   hero: { kind: 'page', doc: 'deck', n: 9, alt: 'Runway renders of Look 1: cream calligraphy shirt over brown trousers' },
   sections: [
@@ -27,10 +28,7 @@ export const arabia: Project = {
       bodyAr: [
         "المجموعة دي بتعيد تشكيل الفكرة التقليدية للقميص، وبتحول الباترون الأساسي لقطعة هي بطلة الطقم كله وليها كيانها الخاص. الفكرة كلها بتتمحور حول 'الشياكة المحتشمة'، اللي بتجمع المحجبات وغير المحجبات في ستايل واحد راقي بيعبر عن هويتنا. ومن خلال دمج الخياطة الراقية مع جمال الخط العربي والألوان الدافئة، قدرت اخلي اللبس مش مجرد قطعة قماش، لكنه رسالة بتأكد إن الاحتشام قمة في الأناقة، وإن تراثنا العربي يقدر يكون عصري جدًا وفي منتهى الشياكة",
       ],
-      media: [
-        { kind: 'page', doc: 'deck', n: 1, alt: 'Title page with red Arabic calligraphy' },
-        { kind: 'page', doc: 'deck', n: 2, alt: 'Concept page in English and Arabic' },
-      ],
+      media: [],
     },
     {
       kind: 'digital',

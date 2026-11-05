@@ -162,7 +162,7 @@ async function buildImages(project, entry) {
 
 async function buildDocument(project, doc, entry) {
   const file = path.join(SOURCE_DIR, doc.file);
-  const key = sourceKey(file, doc.pages ? `-${doc.pages.join(',')}` : '');
+  const key = sourceKey(file, `${doc.pages ? `-${doc.pages.join(',')}` : ''}${doc.rotate ? `-r${JSON.stringify(doc.rotate)}` : ''}`);
   const dirOut = path.join(OUTPUT_DIR, project.slug, doc.id);
   const old = entry.documents?.[doc.id];
   const pageBase = (n) => path.join(dirOut, `p${String(n).padStart(3, '0')}`);
@@ -183,7 +183,8 @@ async function buildDocument(project, doc, entry) {
   const pages = [];
   for (const n of numbers) {
     try {
-      const img = await loadUpright(await doc2.getPage(n));
+      const page = await doc2.getPage(n);
+      const img = await loadUpright(doc.rotate?.[n] ? await sharp(page).rotate(doc.rotate[n]).png().toBuffer() : page);
       const widths = widthsFor(img.raw.width, PAGE_WIDTHS);
       await writeSizes(img, pageBase(n), widths, { webp: { quality: 82 } });
       pages.push({ n, src: toUrl(pageBase(n)), widths, ...(await describe(img)) });

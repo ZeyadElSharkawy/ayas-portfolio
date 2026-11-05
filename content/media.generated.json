@@ -1774,9 +1774,9 @@
               800,
               1600
             ],
-            "width": 1602,
-            "height": 2273,
-            "blur": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAABQBACdASoQABcAPu1iqU2ppaQiMAgBMB2JaACdMoRwACk5f06wNah5lPAAAP7tQ7s8q9Xa3OyXA7/S2BOw7F4MaIJZUE0g9P5qyWoyzqla6q+U8AywmFUflR0XWBUE2Ll2J/zE0lt+Bk0a3cAxqVaB2X1Hz3amIia01pEqDjZrMBkXlfHiyV7qzaVLwNgnfEAAAA==",
+            "width": 2273,
+            "height": 1602,
+            "blur": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAwAgCdASoQAAsAA4BaJbACdAEUi0v7knjBAAD+84hVRUl/2w4jn99zN/0O+IPQ119a5UridsBlZDz81KTZvGqNKktp38kHWBhmiiaKMM0l1dOGN3y/Zrrs2+ll+MAA",
             "color": "#f8e8c8"
           },
           {
@@ -1786,9 +1786,9 @@
               800,
               1600
             ],
-            "width": 1602,
-            "height": 2273,
-            "blur": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAABQBACdASoQABcAPu1iqU2ppaOiMAgBMB2JYwCw7CHgSyjFlUSvFdvmY4UgAP7tPNzb2ZHD2oK7M9T5iy6dxEmeSpCGLB6uT9Lv5Z6lWbDsSZHv928seQvLwOcHaFZBSAbHucpdFyOZuJm+5x18YfUCwEbsCcvwAAA=",
+            "width": 2273,
+            "height": 1602,
+            "blur": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoQAAsAA4BaJQBOgCP/47rsAAD+8EFQQg/OrMaGIiFiQY0qv64xknwbzxvgWTRCN1VjYuE5b9j2uAAA",
             "color": "#f8e8d8"
           },
           {
@@ -1822,9 +1822,9 @@
               800,
               1600
             ],
-            "width": 1602,
-            "height": 2273,
-            "blur": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAABwBACdASoQABcAPu1iqU2ppaOiMAgBMB2JYgCdMoADVMPJZn5XTryNR7TMAAD+6GdNFuwzRke/sQrkomMnuBNwMBv+y/y7vdNZmkSJjSqd8Uydt7Dn11Z2LFhKTXiTeQ0lyJU5j2FzWzeglMvYfJzL0YYHLiG7Ml4EwHXXg4O0GnAA",
+            "width": 2273,
+            "height": 1602,
+            "blur": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQAgCdASoQAAsAA4BaJZACdADSGTWFu9ZcAP7033urogt2K/YkTvrFB4h55dTY03x8wazGYpN4TJaeZq0JcSboRhTCM3jCPWiedn70sYPpiDJj0Z1oHtmkOEnGZAAA",
             "color": "#f8e8c8"
           },
           {
@@ -1834,9 +1834,9 @@
               800,
               1600
             ],
-            "width": 1602,
-            "height": 2273,
-            "blur": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAQBACdASoQABcAPu1iqU2ppaOiMAgBMB2JZACxG1yBN+5wf85TXOghQAD+7WFzDr+nueny9uVzdE4SSDJaqCZ13VjA/Kwq0wx/N6SYWKV1eTt/qgAO1N96mFl64S6WqWjm0iEW2nuofii0PSFS5zeVnzDnrB1LDTK2QL4zSlou2P3HXjkZ7WJYgAA=",
+            "width": 2273,
+            "height": 1602,
+            "blur": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwAgCdASoQAAsAA4BaJZACdADRERFL1NciAAD+9N8aulKA4xhM5JuKJOE7zraGnuiZagCfupUEj88F97PBsJH+kMOTzEz/0+umah68I0WlAWTJkUpM6ho50SttmZxP3zeoAAAA",
             "color": "#f8e8c8"
           },
           {
@@ -1853,7 +1853,7 @@
           }
         ],
         "source": "1 Selected Works/1.1 Cultural Echoes/1.1 Cultural Echoes Booklet (do not use these pics).pdf",
-        "key": "43430343-1792823877955-1,2,3,4,5,6,7,64"
+        "key": "43430343-1792823877955-1,2,3,4,5,6,7,64-r{\"2\":90,\"3\":90,\"6\":270,\"7\":90}"
       },
       "poster": {
         "pageCount": 1,

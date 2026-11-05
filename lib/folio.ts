@@ -2,7 +2,6 @@
 // so the client component never imports the media manifest.
 
 import { projects } from '../content/projects/index.ts';
-import { categoryOf } from '../content/categories.ts';
 import type { MediaRef, Project } from '../content/types.ts';
 import { resolveMedia } from './media.ts';
 import { chapterTitles, processChapters, sectionsIn } from './chapters.ts';
@@ -12,8 +11,6 @@ export interface FolioEntry {
   slug: string;
   title: string;
   titleAr?: string;
-  label: string;
-  tagline: string;
   /** Cover first, then two more finished-work images. */
   outcome: PictureData[];
   process: { title: string; images: PictureData[] }[];
@@ -36,8 +33,6 @@ function entry(p: Project): FolioEntry {
     slug: p.slug,
     title: p.title,
     titleAr: p.titleAr,
-    label: categoryOf(p.category).label,
-    tagline: p.tagline,
     outcome: [p.cover, ...finished.slice(0, 2)].map((r) => picture(p, r)),
     process: processChapters
       .map((c) => ({

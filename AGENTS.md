@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # Aya's Portfolio
 
-Fashion portfolio for Aya Hafez, aimed at internship recruiters. Quiet, editorial design: one page that previews all her work (an index of project titles beside the work, with an Outcome / Process switch), and a project page per project told in five chapters. Next.js 16 App Router, React 19, Tailwind 4, strict TypeScript, fully static.
+Fashion portfolio for Aya Hafez, aimed at internship recruiters. Quiet, editorial design: one page that previews all her work (an index of project titles beside the work, with an Outcome / Process switch), and a full project page per project with its signature interaction. The page colour follows the selected project. Next.js 16 App Router, React 19, Tailwind 4, strict TypeScript, fully static.
 
 **Read `PLAN.md` before non-trivial work.** Its top section is the current design log; everything under "Archive" describes the earlier 3D-atelier concept (kept on `main`), except §1, which is still the best summary of the content. The design sketches are in `design/sketches/` (open `index.html`); the site follows Concept C.
 
@@ -24,6 +24,8 @@ npm run lint
 npm run check:content        # run after editing content/: validates media refs, lists unused assets and open questions
 npm run media                # _source/ → public/media/ + content/media.generated.json (needs _source/, which is git-ignored)
 npm run media -- --project=<slug> --only=images,documents,videos --force
+npm run media:signature      # after `npm run media`: crops renders, traces stitch paths
+npm run media:cutouts        # poster icons, Carina flat parts and the hoop, straight from the source PDFs
 ```
 
 No test suite and no CI. Verify changes with `lint`, `tsc --noEmit` and `build` (plus `check:content` for content edits).
@@ -31,8 +33,9 @@ No test suite and no CI. Verify changes with `lint`, `tsc --noEmit` and `build` 
 ## Content and media
 
 - Copy lives in `content/projects/*.ts` (plain typed data, one file per project), plus `content/about.ts` and `content/cv.ts`. Media is referenced by id (`MediaRef`) and resolved against `content/media.generated.json` via `lib/media.ts`; unknown ids **throw** (deliberate typo guard). If the manifest is missing, run `npm run media`.
-- `content/media.generated.json` is generated; never edit it by hand. The source-file → project mapping (page ranges, video crops, posters) lives in `scripts/media/config.mjs`.
-- Sections keep the booklet structure (`SectionKind`); `lib/chapters.ts` maps them to the five chapters (Outcome, Why, Research, Development, Reflection). A section's `chapter` field overrides the default. Reflection is Aya's to write and stays hidden until `reflection` is set.
+- Never edit generated JSON by hand. The source-file → project mapping (page ranges, video crops, posters) lives in `scripts/media/config.mjs`.
+- Sections keep the booklet structure (`SectionKind`) and render in file order on the project page. `lib/chapters.ts` maps them to Outcome, Why, Research and Development for the home page's Process view and the `#process` anchor; a section's `chapter` field overrides the default. Reflection is Aya's to write and stays hidden until `reflection` is set.
+- `content/media.generated.json` and `content/signature.generated.json` are both generated.
 - All copy is `status: 'draft'` until Aya reviews it; per-project `questions` arrays (and `aboutQuestions`) hold open items. Don't mark anything approved or invent final copy.
 - Cultural Echoes: the booklet file is named "do not use these pics". Use its diagram, moodboard and sketch pages only, not the photos in it, until Aya says otherwise.
 
@@ -44,7 +47,10 @@ No test suite and no CI. Verify changes with `lint`, `tsc --noEmit` and `build` 
 
 ## Design rules
 
-- Tokens live in `app/globals.css` (`paper`, `ink`, `ink-2`, `ink-3`, `line`, `tint`, `accent`). Instrument Serif for display, Inter for text, Noto Naskh Arabic for Arabic. Light only, deliberately.
+- Colour follows the work. `app/globals.css` holds the beige defaults (About, 404) for `paper`, `ink`, `ink-2`, `ink-3`, `line`, `tint`, `accent`; `lib/project-colors.ts` overrides those same variables per project. Project pages and the home page render them as a `<style>` in server HTML (no flash); `Folio` then updates them on `:root` as the selection changes, and they fade because they are registered with `@property`. New colour work should use these tokens; `night` and `chalk` are fixed, for viewers and film.
+- `components/site/PageFinish.tsx` adds a fixed layer behind a project's page: falling snow for Glacier, brushed paint and her cover calligraphy for Arabia, velvet curtain folds under a spotlight for Identity Breakdown. Keep the page colour recognisable and keep marks darker than the page where text sits on them.
+- Signature interactions (`components/signature/`) are self-contained bands with their own fixed colours, so they don't follow the tokens. Each must respect `prefers-reduced-motion`, work by keyboard, and have no horizontal overflow at 375 px. Sound is synthesised (`lib/sound.ts`), off by default, and only toggled inside Cultural Echoes.
+- Playfair Display for titles (Latin only). Amiri for all Arabic, titles included. The text face is Proxima Nova, loaded with `next/font/local` from `assets/fonts/proxima-nova/`. Those are Fontspring **demo** cuts: ASCII only, with the digit 4 and most symbols watermarked, so `unicode-range` limits them and Montserrat supplies the rest. Replace them with licensed files before launch: see the README in that folder.
 - CV and Contact stay in the header on every page; the footer is the contact block (`#contact`).
 - Motion is opt-in via `motion-safe:`; everything works by keyboard; no horizontal overflow at 375 px.
 - Screenshot quirk in this environment: at 1.25× DPR only the top-left 80% of the viewport is captured.

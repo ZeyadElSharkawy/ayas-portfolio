@@ -13,6 +13,7 @@ export const inHonorOfOurWomen: Project = {
     { label: 'Materials', value: 'Off-white dakka cloth, hot-pink gabardine' },
     { label: 'Techniques', value: 'Machine embroidery, photography' },
   ],
+  palette: ['#F4EFE6', '#E0157A', '#1A1A1A', '#FFFFFF'],
   cover: { kind: 'page', doc: 'booklet', n: 64, alt: 'Embroidered banner panel: a pink line portrait beside a handwritten Arabic tribute on off-white cloth with hot-pink borders' },
   hero: { kind: 'page', doc: 'booklet', n: 68, alt: 'The installation: a central embroidered banner flanked by strips of black-and-white photographs' },
   sections: [

@@ -9,16 +9,16 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-8">
-        <Link href="/" className="font-serif text-[22px] leading-none tracking-tight">
+        <Link href="/" className="whitespace-nowrap font-display text-[20px] leading-none sm:text-[22px]">
           Aya Hafez
         </Link>
-        <nav aria-label="Main" className="flex items-center gap-4 text-[13px] sm:gap-7">
+        <nav aria-label="Main" className="flex items-center gap-2.5 whitespace-nowrap text-[12px] sm:gap-7 sm:text-[13px]">
           <Link href="/" className={navLink}>Work</Link>
           <Link href="/about" className={navLink}>About</Link>
           <a href={contact.cvPdf} download className={navLink}>
             CV <span aria-hidden>↓</span>
           </a>
-          <a href="#contact" className="rounded-full border border-ink px-3 py-1 text-ink transition-colors hover:bg-ink hover:text-paper">
+          <a href="#contact" className="rounded-full border border-ink px-2.5 py-1 text-ink sm:px-3 transition-colors hover:bg-ink hover:text-paper">
             Contact
           </a>
         </nav>
@@ -32,10 +32,9 @@ export function SiteFooter() {
     <footer id="contact" className="mt-24 border-t border-line">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-14 sm:px-8 md:grid-cols-12">
         <div className="md:col-span-7">
-          <p className="text-[13px] text-ink-2">Open to internships in fashion design</p>
           <a
             href={`mailto:${contact.email}`}
-            className="mt-3 block break-all font-serif text-[clamp(32px,5vw,64px)] leading-[1.02] tracking-tight underline decoration-line decoration-1 underline-offset-[0.18em] transition-colors hover:decoration-ink"
+            className="block break-all text-[clamp(22px,3.6vw,48px)] font-medium leading-[1.1] underline decoration-line decoration-1 underline-offset-[0.18em] transition-colors hover:decoration-ink"
           >
             {contact.email}
           </a>

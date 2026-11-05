@@ -1,47 +1,58 @@
-// A pipeline image as <picture>: AVIF/WebP sources at every processed width, a flat colour while it loads.
-// No manifest import, so client components can render it too.
+import type { ResolvedImage } from '@/lib/media';
+import { srcSet, largest } from '@/lib/media-urls';
 
-import { srcSet } from '@/lib/media-urls';
+// Responsive <picture> for pipeline output. The pipeline already made every size and format,
+// so this skips next/image and serves the files directly, with the blur placeholder as background.
 
-export interface PictureData {
-  src: string;
-  widths: number[];
-  formats: string[];
-  width: number;
-  height: number;
-  color?: string;
-  alt: string;
-}
+/** What an image needs; the home page's lean entries leave out `blur` to keep its payload small. */
+export type PictureData = Omit<ResolvedImage, 'kind' | 'blur' | 'caption'> & { blur?: string; caption?: string };
 
-interface Props {
-  img: PictureData;
-  sizes: string;
+export function Picture({
+  image,
+  sizes = '100vw',
+  className = '',
+  priority = false,
+  fit = 'cover',
+  placeholder = true,
+  draggable = false,
+}: {
+  image: PictureData;
+  sizes?: string;
   className?: string;
-  /** Fill the parent box (object-cover) instead of keeping the image's own aspect ratio. */
-  fill?: boolean;
   priority?: boolean;
-}
-
-export function Picture({ img, sizes, className = '', fill, priority }: Props) {
-  const formats = img.formats.length ? img.formats : ['webp'];
-  const fallback = formats[formats.length - 1];
+  fit?: 'cover' | 'contain';
+  draggable?: boolean;
+  /** Blur + dominant colour behind the image while it loads. Turn off where it would letterbox. */
+  placeholder?: boolean;
+}) {
+  const fallback = image.formats.includes('webp') ? 'webp' : image.formats[0];
   return (
-    <picture className={fill ? 'contents' : undefined}>
-      {formats.slice(0, -1).map((f) => (
-        <source key={f} type={`image/${f}`} srcSet={srcSet(img, f)} sizes={sizes} />
-      ))}
+    <picture className={`block overflow-hidden ${className}`}>
+      {image.formats
+        .filter((f) => f !== fallback)
+        .map((f) => (
+          <source key={f} type={`image/${f}`} srcSet={srcSet(image, f)} sizes={sizes} />
+        ))}
       <img
-        src={`${img.src}-${img.widths[0]}.${fallback}`}
-        srcSet={srcSet(img, fallback)}
+        src={largest(image, fallback)}
+        srcSet={srcSet(image, fallback)}
         sizes={sizes}
-        width={img.width}
-        height={img.height}
-        alt={img.alt}
+        width={image.width}
+        height={image.height}
+        alt={image.alt}
+        draggable={draggable}
         loading={priority ? 'eager' : 'lazy'}
         fetchPriority={priority ? 'high' : undefined}
         decoding="async"
-        style={{ backgroundColor: img.color }}
-        className={`${fill ? 'h-full w-full object-cover' : 'h-auto w-full'} ${className}`}
+        className="h-full w-full"
+        style={{
+          objectFit: fit,
+          ...(placeholder && {
+            ...(image.blur && { backgroundImage: `url(${image.blur})` }),
+            backgroundSize: 'cover',
+            backgroundColor: image.color,
+          }),
+        }}
       />
     </picture>
   );

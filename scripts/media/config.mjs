@@ -9,6 +9,7 @@ export const MANIFEST_PATH = 'content/media.generated.json';
 export const IMAGE_WIDTHS = [640, 1280, 1920];
 export const PAGE_WIDTHS = [800, 1600];
 export const VIDEO_MAX_SIZE = 1920; // longest edge
+// Per-document options: `pages` (subset to render), `rotate` ({ page: degrees clockwise }, for pages set sideways in the PDF).
 // Per-video options: `crop` (ffmpeg crop=w:h:x:y, applied before scaling), `posterAt` (seconds; default 1).
 
 const range = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
@@ -19,7 +20,7 @@ export const projects = [
     images: { dir: '1 Selected Works/1.1 Cultural Echoes' },
     documents: [
       // Booklet photos (pp. 8–63) are marked "do not use" until Aya confirms otherwise.
-      { id: 'booklet', file: '1 Selected Works/1.1 Cultural Echoes/1.1 Cultural Echoes Booklet (do not use these pics).pdf', pages: [...range(1, 7), 64] },
+      { id: 'booklet', file: '1 Selected Works/1.1 Cultural Echoes/1.1 Cultural Echoes Booklet (do not use these pics).pdf', pages: [...range(1, 7), 64], rotate: { 2: 90, 3: 90, 6: 270, 7: 90 } },
       { id: 'poster', file: '1 Selected Works/1.1 Cultural Echoes/1.1 Cultural Echoes Poster.pdf' },
     ],
     videos: [

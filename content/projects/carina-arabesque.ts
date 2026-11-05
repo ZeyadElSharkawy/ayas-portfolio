@@ -16,6 +16,7 @@ export const carinaArabesque: Project = {
     { label: 'Technique', value: 'Machine embroidery' },
     { label: 'Shot in', value: 'Historic Cairo' },
   ],
+  palette: ['#4E5B3A', '#E9E7A6', '#5B3A2B', '#1F6F78', '#E2752C'],
   cover: { kind: 'image', id: 'img-8458', alt: 'Mother and daughter on old stone steps in matching olive embroidered jackets and pale lemon skirts' },
   hero: { kind: 'image', id: 'img-8437', alt: 'Mother and daughter in front of a carved wooden mashrabiya window, in matching olive jackets and lemon skirts' },
   sections: [

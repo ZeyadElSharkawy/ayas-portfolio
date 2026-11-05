@@ -49,6 +49,8 @@ export interface Project {
   year?: number;
   client?: string;
   facts: { label: string; value: string }[];
+  /** Colours of the work. Page colours are chosen from these in lib/project-colors.ts. */
+  palette: string[];
   /** Shown first in the index's outcome view. */
   cover: MediaRef;
   /** First thing seen on the project page. */

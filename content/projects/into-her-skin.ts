@@ -13,6 +13,7 @@ export const intoHerSkin: Project = {
     { label: 'Process', value: 'Illustrator + CLO3D digital prototype, three fittings' },
     { label: 'Techniques', value: 'Print design, draping, pleating' },
   ],
+  palette: ['#9C97D6', '#3E5BC4', '#F5E15A', '#D7E84B', '#D4A63A'],
   cover: { kind: 'page', doc: 'booklet', n: 38, alt: 'Shahenda inside the aerial hoop in the printed blue bodysuit with lime mesh drapes' },
   hero: { kind: 'page', doc: 'booklet', n: 44, alt: 'Shahenda seated in the hoop, the lime mesh draped across her body' },
   sections: [

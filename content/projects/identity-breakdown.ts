@@ -12,6 +12,7 @@ export const identityBreakdown: Project = {
     { label: 'Software', value: 'CLO3D' },
     { label: 'Process', value: 'Identity analysis → moodboard → illustration → 3D' },
   ],
+  palette: ['#8C0F1E', '#E0115F', '#F7A8C4', '#1A0A0D', '#F2E6E8'],
   cover: { kind: 'page', doc: 'deck', n: 10, alt: 'CLO3D avatar in a black jacket and long maroon skirt' },
   hero: { kind: 'page', doc: 'deck', n: 14, alt: "Final choice: Salma's movie outfit rendered in a red cinema setting" },
   sections: [

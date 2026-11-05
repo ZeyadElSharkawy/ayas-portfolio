@@ -1,24 +1,77 @@
 @import "tailwindcss";
 
-/* Quiet, editorial: warm paper, near-black ink, one deep-teal accent kept for focus and links. */
-@theme {
-  --color-paper: #f5f2ec;
-  --color-tint: #ebe7df;
-  --color-ink: #161513;
-  --color-ink-2: #55524c;
-  --color-ink-3: #8a867e;
-  --color-line: rgb(22 21 19 / 0.14);
-  --color-accent: #1f4e4a;
+/*
+ * Colour follows the work. These values are the generic beige used on About and 404; project pages
+ * and the home page override the same variables on :root (lib/project-colors.ts), so everything
+ * that uses them recolours together. `night` and `chalk` never change: they are for viewers and film.
+ */
+@theme static {
+  --color-paper: #f4e2cc;
+  --color-ink: #2b1a1d;
+  --color-ink-2: #46322f;
+  --color-ink-3: #5e4a44;
+  --color-line: #d2bcaa;
+  --color-tint: #e9d6c1;
+  --color-accent: #2f5643;
+  --color-night: #141211;
+  --color-chalk: #f4efe6;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
-  --font-arabic: var(--font-naskh), "Noto Naskh Arabic", serif;
+  /* Montserrat supplies the characters the Proxima Nova demo cuts don't have. */
+  --font-sans: var(--font-proxima), var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-arabic: var(--font-amiri), "Amiri", serif;
+
+  --text-headline: clamp(2rem, 1.5rem + 2.2vw, 3.5rem);
+  --text-headline--line-height: 1.04;
+
+  --ease-thread: cubic-bezier(0.65, 0, 0.35, 1);
 
   --animate-fade: fade 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
   @keyframes fade {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: none; }
   }
+}
+
+/* Registered as colours so a change of project can fade instead of jump. */
+@property --color-paper { syntax: "<color>"; inherits: true; initial-value: #f4e2cc; }
+@property --color-ink { syntax: "<color>"; inherits: true; initial-value: #2b1a1d; }
+@property --color-ink-2 { syntax: "<color>"; inherits: true; initial-value: #46322f; }
+@property --color-ink-3 { syntax: "<color>"; inherits: true; initial-value: #5e4a44; }
+@property --color-line { syntax: "<color>"; inherits: true; initial-value: #d2bcaa; }
+@property --color-tint { syntax: "<color>"; inherits: true; initial-value: #e9d6c1; }
+@property --color-accent { syntax: "<color>"; inherits: true; initial-value: #2f5643; }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    transition: --color-paper 500ms ease, --color-ink 500ms ease, --color-ink-2 500ms ease, --color-ink-3 500ms ease,
+      --color-line 500ms ease, --color-tint 500ms ease, --color-accent 500ms ease;
+  }
+}
+
+/* Used by the signature interactions. */
+@keyframes hoop-sway {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2.5deg); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+@keyframes snow-fall {
+  to { transform: translate3d(18px, 105vh, 0); }
+}
+/* An SVG stroke drawn in, for shapes with pathLength="1". */
+@keyframes draw-in {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+/* In Honor of Our Women: the hanging banner moving in a draught. */
+@keyframes banner-sway {
+  0%, 100% { transform: rotateY(-4deg) rotateZ(0.5deg); }
+  50% { transform: rotateY(4deg) rotateZ(-0.5deg); }
+}
+@keyframes needle-bob {
+  50% { transform: translate(0, -5px); }
 }
 
 @layer base {
@@ -39,4 +92,27 @@
     border-radius: 2px;
   }
   [id] { scroll-margin-top: 5rem; }
+  [lang="ar"] { font-family: var(--font-arabic); }
+}
+
+@layer components {
+  /* Small label for section kinds and captions. */
+  .label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .link-line {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

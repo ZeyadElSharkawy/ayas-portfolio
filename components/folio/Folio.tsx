@@ -3,11 +3,14 @@
 // Concept C, "index and folio": every project title on the left, the work beside it,
 // and one switch between the finished outcome and the process behind it.
 // Desktop: hover or focus a title to show it. Mobile: one stacked card per project, same switch.
+// The selected project colours the whole page; the first is selected on load (see app/page.tsx).
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Picture } from '@/components/media/Picture';
+import { PageFinish } from '@/components/site/PageFinish';
 import type { FolioEntry } from '@/lib/folio';
+import { projectColors } from '@/lib/project-colors';
 
 type View = 'outcome' | 'process';
 
@@ -38,11 +41,11 @@ function Outcome({ e, sizes }: { e: FolioEntry; sizes: [string, string] }) {
   return (
     <div className="grid grid-cols-2 gap-2">
       <div className="col-span-2 aspect-[4/5] overflow-hidden bg-tint md:aspect-[5/4]">
-        <Picture img={lead} sizes={sizes[0]} fill />
+        <Picture image={lead} sizes={sizes[0]} className="h-full" />
       </div>
       {rest.map((img) => (
         <div key={img.src} className="aspect-[3/4] overflow-hidden bg-tint">
-          <Picture img={img} sizes={sizes[1]} fill />
+          <Picture image={img} sizes={sizes[1]} className="h-full" />
         </div>
       ))}
     </div>
@@ -51,7 +54,7 @@ function Outcome({ e, sizes }: { e: FolioEntry; sizes: [string, string] }) {
 
 function Process({ e }: { e: FolioEntry }) {
   if (!e.process.length) {
-    return <p className="py-10 text-[14px] text-ink-2">The process for this project is documented on its page.</p>;
+    return <p className="py-10 text-[14px] text-ink-2">This project is shown through its finished work.</p>;
   }
   return (
     <div className="grid gap-4">
@@ -61,7 +64,7 @@ function Process({ e }: { e: FolioEntry }) {
           <div className="grid grid-cols-4 gap-1.5">
             {c.images.map((img) => (
               <div key={img.src} className="aspect-square overflow-hidden bg-tint">
-                <Picture img={img} sizes="(min-width: 768px) 10vw, 20vw" fill />
+                <Picture image={img} sizes="(min-width: 768px) 10vw, 20vw" className="h-full" />
               </div>
             ))}
           </div>
@@ -75,9 +78,29 @@ export function Folio({ entries }: { entries: FolioEntry[] }) {
   const [active, setActive] = useState(0);
   const [view, setView] = useState<View>('outcome');
   const e = entries[active];
+  const cards = useRef<HTMLOListElement>(null);
+
+  useEffect(() => {
+    const root = document.documentElement.style;
+    const colors = Object.entries(projectColors(entries[active].slug));
+    colors.forEach(([k, v]) => root.setProperty(k, v));
+    return () => colors.forEach(([k]) => root.removeProperty(k));
+  }, [active, entries]);
+
+  // Phones have no hover: the card crossing the middle of the screen is the selected one.
+  useEffect(() => {
+    const items = Array.from(cards.current?.children ?? []);
+    const io = new IntersectionObserver(
+      (seen) => seen.forEach((s) => s.isIntersecting && setActive(items.indexOf(s.target))),
+      { rootMargin: '-45% 0px -45% 0px' },
+    );
+    items.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
     <>
+      <PageFinish slug={e.slug} />
       {/* Desktop: index and folio side by side */}
       <div className="hidden grid-cols-12 gap-8 md:grid">
         <nav aria-label="Projects" className="col-span-5 self-start md:sticky md:top-24">
@@ -94,7 +117,7 @@ export function Folio({ entries }: { entries: FolioEntry[] }) {
                   }`}
                 >
                   <span className="text-[12px] tabular-nums">{pad(i)}</span>
-                  <span className="font-serif text-[clamp(30px,3.3vw,52px)] leading-[1.06] tracking-tight">{p.title}</span>
+                  <span className="font-display text-[clamp(30px,3.3vw,52px)] leading-[1.06]">{p.title}</span>
                 </Link>
               </li>
             ))}
@@ -102,10 +125,7 @@ export function Folio({ entries }: { entries: FolioEntry[] }) {
         </nav>
 
         <section aria-label={`${e.title}, ${view}`} className="col-span-7">
-          <div className="mb-3 flex items-center justify-between gap-4">
-            <p className="truncate text-[13px] text-ink-2">
-              <span className="text-ink">{e.label}</span> · {e.tagline}
-            </p>
+          <div className="mb-3 flex justify-end">
             <ViewSwitch view={view} onChange={setView} />
           </div>
           <div key={`${e.slug}-${view}`} className="motion-safe:animate-fade">
@@ -125,16 +145,13 @@ export function Folio({ entries }: { entries: FolioEntry[] }) {
         <div className="sticky top-14 z-30 -mx-4 mb-2 flex justify-end border-b border-line bg-paper/90 px-4 py-2 backdrop-blur-sm">
           <ViewSwitch view={view} onChange={setView} />
         </div>
-        <ol className="grid gap-12">
+        <ol ref={cards} className="grid gap-12">
           {entries.map((p, i) => (
             <li key={p.slug}>
               <Link href={`/work/${p.slug}${view === 'process' ? '#process' : ''}`} className="block">
-                <span className="flex items-baseline justify-between gap-3">
-                  <span className="font-serif text-[34px] leading-[1.05] tracking-tight">
-                    <span className="mr-2 align-[0.55em] font-sans text-[11px] tabular-nums text-ink-3">{pad(i)}</span>
-                    {p.title}
-                  </span>
-                  <span className="shrink-0 text-[11px] text-ink-2">{p.label}</span>
+                <span className="font-display text-[34px] leading-[1.05]">
+                  <span className="mr-2 align-[0.55em] font-sans text-[11px] tabular-nums text-ink-3">{pad(i)}</span>
+                  {p.title}
                 </span>
               </Link>
               <div className="mt-3">

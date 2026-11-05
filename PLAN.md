@@ -8,15 +8,17 @@ A new site from scratch; the 3D atelier below stays on `main` as the archive.
 - Audience: internship recruiters. Tone: quiet and editorial.
 - Research-to-outcome for every project, plus one page that previews all of her work; the process is there for whoever wants to go deeper.
 - Layout: Concept C, "index and folio" (sketches in `design/sketches/`). Home page: a large serif list of project titles beside the work, with an Outcome / Process switch. Mobile: one card per project, same switch.
-- Project page: hero, facts, then five chapters (Outcome, Why, Research, Development, Reflection) with a sticky chapter list. Each image carries its garment note.
+- Project page: the deployed page from `main`, restyled: hero, signature interaction, summary and facts, sections with "On this page" nav, lightbox, booklet viewer, credits, previous/next. This replaced the first five-chapter layout (5 Nov 2026).
+- Background follows the work: each project page takes colours from its palette; the home page does the same with Cultural Echoes auto-selected, changing on hover, focus, or scroll on phones. About/404 stay beige (`lib/project-colors.ts`).
+- Fonts: Playfair Display for titles, Amiri for Arabic, and Proxima Nova for text (demo cuts for now, with Montserrat filling missing characters).
 - CV download and Contact are in the header on every page.
-- Kept from the first build: the media pipeline, processed media, and the copy drafted from her booklets. Dropped: all 3D, sound, cursor and signature interactions.
+- Kept from the first build: the media pipeline, processed media, the copy drafted from her booklets, and the signature interactions. Dropped: all 3D, the needle cursor, stitch transitions and the site-wide sound toggle.
 
-**Status:** home, project pages, About/CV, 404, robots and sitemap are built and verified (lint, typecheck, build, 375 px check).
+**Status:** home, project pages, About/CV, 404, robots and sitemap are built.
 
 **Next**
-- Lightbox for images and booklet pages; an "every page" view for each booklet.
-- Open Graph images, favicon, and a PDF portfolio download.
+- Before launch: buy a Proxima Nova web licence and replace the demo files (`assets/fonts/proxima-nova/README.md`).
+- Open Graph images, refreshed favicon, and a PDF portfolio download.
 - Copy review with Aya, including the home-page statement and the Reflection chapters (`aboutQuestions` and the per-project `questions`).
 
 ---
