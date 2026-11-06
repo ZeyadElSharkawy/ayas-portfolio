@@ -18,7 +18,7 @@ export function GlacierSignature({ statement, images }: { statement: string; ima
     const timer = window.setTimeout(() => {
       cue('shatter');
       setRevealed(true);
-    }, 650);
+    }, 1100);
     return () => window.clearTimeout(timer);
   }, [reduced, seen]);
 
@@ -53,7 +53,7 @@ export function GlacierSignature({ statement, images }: { statement: string; ima
                 <span
                   key={i}
                   className={`border border-white/35 transition-[opacity,transform] ease-[cubic-bezier(.65,0,.35,1)] ${
-                    reduced ? 'duration-0' : 'duration-[950ms]'
+                    reduced ? 'duration-0' : 'duration-[1400ms]'
                   }`}
                   style={{
                     background:
@@ -61,7 +61,7 @@ export function GlacierSignature({ statement, images }: { statement: string; ima
                     boxShadow: 'inset 0 0 18px rgb(255 255 255 / 0.45)',
                     opacity: opened ? 0 : 1,
                     transform: opened ? `translate(${x * 42}px, ${y * 48}px) rotate(${angle}deg) scale(0.82)` : 'translate(0, 0) rotate(0) scale(1)',
-                    transitionDelay: `${i * 18}ms`,
+                    transitionDelay: `${i * 30}ms`,
                   }}
                 />
               );

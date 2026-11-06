@@ -10,6 +10,8 @@ A new site from scratch; the 3D atelier below stays on `main` as the archive.
 - Layout: Concept C, "index and folio" (sketches in `design/sketches/`). Home page: a large serif list of project titles beside the work, with an Outcome / Process switch. Mobile: one card per project, same switch.
 - Project page: the deployed page from `main`, restyled: hero, signature interaction, summary and facts, sections with "On this page" nav, lightbox, booklet viewer, credits, previous/next. This replaced the first five-chapter layout (5 Nov 2026).
 - Background follows the work: each project page takes colours from its palette; the home page does the same with Cultural Echoes auto-selected, changing on hover, focus, or scroll on phones. About/404 stay beige (`lib/project-colors.ts`).
+- No slides on project pages: everything is extracted or cropped from her PDFs (`media:clean`), and slide text moved to the page. Section titles are optional.
+- Glacier, Carina and Clue use a full-width lookbook hero (`heroSet`): three uncropped portraits.
 - Fonts: Playfair Display for titles, Amiri for Arabic, and Proxima Nova for text (demo cuts for now, with Montserrat filling missing characters).
 - CV download and Contact are in the header on every page.
 - Kept from the first build: the media pipeline, processed media, the copy drafted from her booklets, and the signature interactions. Dropped: all 3D, the needle cursor, stitch transitions and the site-wide sound toggle.

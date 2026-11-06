@@ -16,7 +16,7 @@ export function MediaGrid({ items, horizontal = false }: { items: GridItem[]; ho
   const stills = items.filter((i): i is { media: ResolvedImage; lightboxIndex: number } => i.media.kind !== 'video');
   // Few stills look lost in a 3-column masonry.
   const cols = Math.min(3, Math.max(1, stills.length)) as 1 | 2 | 3;
-  const colClass = { 1: 'sm:columns-1 max-w-3xl', 2: 'sm:columns-2', 3: 'sm:columns-2 lg:columns-3' }[cols];
+  const colClass = { 1: 'sm:columns-1', 2: 'sm:columns-2', 3: 'sm:columns-2 lg:columns-3' }[cols];
 
   return (
     <div className="space-y-6">
@@ -43,7 +43,7 @@ export function MediaGrid({ items, horizontal = false }: { items: GridItem[]; ho
                 <Picture
                   image={media}
                   sizes={horizontal ? '(min-width: 640px) 28rem, 82vw' : cols === 1 ? '(min-width: 768px) 48rem, 100vw' : '(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw'}
-                  className="rounded-sm transition-opacity hover:opacity-90"
+                  className="rounded-sm transition-opacity hover:opacity-90 [&_img]:mx-auto [&_img]:h-auto [&_img]:max-h-[82svh] [&_img]:w-auto"
                 />
               </LightboxButton>
               {(media.caption || horizontal) && <figcaption className="mt-2 text-sm text-ink-2">{media.caption ?? media.alt}</figcaption>}

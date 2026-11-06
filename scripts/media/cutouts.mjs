@@ -69,6 +69,14 @@ const ICONS = {
   // `clear` blanks a neighbouring piece of the poster title that falls inside the rectangle.
   tabla: { rect: [1398, 118, 1539, 276], clear: [1398, 240, 1428, 276] },
   cymbals: { rect: [80, 1208, 196, 1352] },
+  'oud-2': { rect: [66, 556, 162, 682] },
+  dancers: { rect: [82, 684, 186, 792] },
+  raised: { rect: [104, 918, 172, 1064] },
+  tambourine: { rect: [74, 368, 162, 548] },
+  gramophone: { rect: [88, 1062, 202, 1206] },
+  sax: { rect: [76, 1486, 192, 1624] },
+  seller: { rect: [68, 1752, 156, 1948] },
+  keys: { rect: [80, 2078, 258, 2194] },
 };
 
 /** Drops specks of paper texture: solid shapes smaller than `min` pixels. */

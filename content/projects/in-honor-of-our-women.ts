@@ -25,8 +25,7 @@ export const inHonorOfOurWomen: Project = {
         'It takes a moment to shed light on Egyptian women as a collective identity, and to honour their differences: who they are as individuals, and the beautiful impact they have on our past, present and future.',
       ],
       media: [
-        { kind: 'page', doc: 'booklet', n: 50, alt: 'Title: In honor of our women, تكريماً لنسائنا' },
-        { kind: 'page', doc: 'booklet', n: 52, alt: 'References: textile installations and hanging banners' },
+        { kind: 'clean', id: 'references', alt: "Reference installations of hanging photographs and textiles" },
       ],
     },
     {
@@ -39,7 +38,7 @@ export const inHonorOfOurWomen: Project = {
         "Hala Kassem, Carina's CEO.",
       ],
       media: [
-        { kind: 'page', doc: 'booklet', n: 56, alt: 'Single-line portraits of Doria Shafik, Hekmat Ashour, Mennatallah Mahmoud and Hala Kassem' },
+        { kind: 'clean', id: 'portraits', alt: 'Line portraits of the four women', caption: 'Doria Shafik, Mennatallah Mahmoud, Hekmat Ashour and Hala Kassem' },
         { kind: 'page', doc: 'booklet', n: 58, alt: 'Portrait with a handwritten Arabic tribute' },
         { kind: 'page', doc: 'booklet', n: 59, alt: 'Portrait with a handwritten Arabic tribute' },
         { kind: 'page', doc: 'booklet', n: 60, alt: 'Portrait with a handwritten Arabic tribute' },
@@ -50,8 +49,6 @@ export const inHonorOfOurWomen: Project = {
       kind: 'construction',
       title: 'Making',
       media: [
-        { kind: 'page', doc: 'booklet', n: 54, alt: 'Measurements of the banner panels' },
-        { kind: 'page', doc: 'booklet', n: 55, alt: 'Fabrics (off-white dakka, hot-pink gabardine) and techniques (machine embroidery, photography)' },
         { kind: 'page', doc: 'booklet', n: 57, alt: 'Process: embroidery hoop, pink and red thread cones and fabric samples' },
       ],
     },

@@ -1,7 +1,7 @@
 // A fixed layer behind a project's page, for surfaces a flat colour can't give:
-// falling snow for Glacier, a brushed paint finish and her cover calligraphy on Arabia, and a velvet
-// stage curtain under a spotlight on Identity Breakdown. Calligraphy and folds are darker than the page,
-// so text over them only gains contrast.
+// falling snow for Glacier, window sunlight on Clue, a brushed paint finish and her cover calligraphy on Arabia, and the red
+// paint ground of her own slides on Identity Breakdown. Arabia's calligraphy is darker than the page,
+// so text over it only gains contrast.
 
 /** Light and dark brush marks in equal measure, so the colour underneath stays the same on average. */
 const paint = (seed: number) => {
@@ -10,16 +10,6 @@ const paint = (seed: number) => {
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='1400'>${marks('l', 1, '0.009 0.03', 1.2, -0.6)}${marks('d', 0, '0.009 0.03', -1.2, 0.6)}${marks('m', 0, '0.0022 0.0034', -1.4, 0.7)}${marks('n', 1, '0.0022 0.0034', 1.4, -0.7)}</svg>`;
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 };
-
-/** Long vertical folds of stage velvet: deep shadows, with a soft sheen along the crests. */
-const velvet = () => {
-  const folds = (id: string, value: number, gain: number, offset: number) =>
-    `<filter id='${id}' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.011 0.00072' numOctaves='3' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 ${value} 0 0 0 0 ${value * 0.55} 0 0 0 0 ${value * 0.6} ${gain} 0 0 0 ${offset}'/></filter><rect width='100%' height='100%' filter='url(#${id})'/>`;
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='1400'>${folds('s', 0.08, -3.4, 1.72)}${folds('h', 1, 0.7, -0.42)}</svg>`;
-  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-};
-
-const VELVET = velvet();
 
 const FLAKES = 70;
 
@@ -52,6 +42,16 @@ function Snow() {
 
 export function PageFinish({ slug }: { slug: string }) {
   if (slug === 'glacier') return <Snow />;
+  if (slug === 'clue-styling') {
+    // Hard afternoon sun through a window, as on her shoot: one light across the hero and everything after it.
+    return (
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{ background: 'repeating-linear-gradient(115deg, transparent 0 170px, rgb(90 60 30 / 0.07) 170px 300px)' }}
+      />
+    );
+  }
   if (slug === 'arabia') {
     return (
       <>
@@ -64,13 +64,14 @@ export function PageFinish({ slug }: { slug: string }) {
     );
   }
   if (slug === 'identity-breakdown') {
+    // A wash of the page red calms her glitter paint so small text stays comfortable on it.
     return (
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 -z-10"
         style={{
-          backgroundImage: `radial-gradient(ellipse 55% 75% at 50% -12%, rgb(255 214 190 / 0.07), transparent 70%), linear-gradient(to bottom, transparent 55%, rgb(24 0 6 / 0.42)), ${VELVET}`,
-          backgroundSize: 'auto, auto, 1400px 1400px',
+          backgroundImage: 'linear-gradient(rgb(140 15 30 / 0.55), rgb(140 15 30 / 0.55)), url(/media/identity-breakdown/clean/paint-ground-1252.webp)',
+          backgroundSize: 'auto, 1252px auto',
         }}
       />
     );

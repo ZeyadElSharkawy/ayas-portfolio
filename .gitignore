@@ -44,9 +44,8 @@ next-env.d.ts
 /_source/
 /Drive Folder Content/
 
-# media pipeline: cache, and videos (hosted on R2 once deployed)
+# media pipeline: cache
 /.cache/
-/public/media/**/video/
 
 # font archive (the fonts the site uses are in assets/fonts/)
 /Proxima-Nova-*.zip

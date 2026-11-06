@@ -13,6 +13,7 @@ import { IntoHerSkinSignature } from './IntoHerSkin';
 
 const image = (slug: string, id: string, alt: string) => resolveMedia(slug, { kind: 'image', id, alt }) as ResolvedImage;
 const page = (slug: string, doc: string, n: number, alt: string) => resolveMedia(slug, { kind: 'page', doc, n, alt }) as ResolvedImage;
+const clean = (slug: string, id: string, alt: string) => resolveMedia(slug, { kind: 'clean', id, alt }) as ResolvedImage;
 
 export function Signature({ project }: { project: Project }) {
   const { slug } = project;
@@ -28,7 +29,7 @@ export function Signature({ project }: { project: Project }) {
         statement={statement}
         images={[
           image(slug, 'img-4437', 'Gliding on the ice in the white look, one leg extended'),
-          image(slug, 'img-4572', 'Arm raised on the ice in the dark-blue look'),
+          image(slug, 'img-4592', 'Side view of the dark-blue look'),
           image(slug, 'img-4447', 'Portrait in the white look with snowflake embroidery'),
         ]}
       />
@@ -44,9 +45,9 @@ export function Signature({ project }: { project: Project }) {
       page(slug, 'booklet', n, finalPages.find((m) => m.n === n)?.alt ?? `On the hoop, page ${n}`),
     );
     const fittings = [
-      { label: 'Prototype', page: page(slug, 'booklet', 23, 'First prototype of the printed bodysuit'), note: 'The first prototype needed more flow than the print alone could give, so mesh joined the leotard. Side seams then broke the print, which had to be reworked.' },
-      { label: 'Fitting 2', page: page(slug, 'booklet', 30, 'Fitting 2 on the aerial hoop'), note: 'Too tight to lift her arms, and the mesh didn’t drape from the sides. A wider neckline and triangular “princess-cut” inserts at the ankles fixed the fit.' },
-      { label: 'Fitting 3', page: page(slug, 'booklet', 31, 'Fitting 3 with the draped mesh top'), note: 'The mesh top is pleated halfway so it drapes from the hip, complements the skirt, and knots at the neck to flatter her back.' },
+      { label: 'Prototype', page: clean(slug, 'prototype', 'First prototype of the printed bodysuit'), note: 'The first prototype needed more flow than the print alone could give, so mesh joined the leotard. Side seams then broke the print, which had to be reworked.' },
+      { label: 'Fitting 2', page: clean(slug, 'fitting-2', 'Fitting 2 on the aerial hoop'), note: 'Too tight to lift her arms, and the mesh didn’t drape from the sides. A wider neckline and triangular “princess-cut” inserts at the ankles fixed the fit.' },
+      { label: 'Fitting 3', page: clean(slug, 'fitting-3', 'Fitting 3 with the draped mesh top'), note: 'The mesh top is pleated halfway so it drapes from the hip, complements the skirt, and knots at the neck to flatter her back.' },
     ];
     const interview = resolveMedia(slug, { kind: 'video', id: 'interview', title: 'Interview with Shahenda Bahgat' }) as ResolvedVideo;
     return <IntoHerSkinSignature hoops={finals} fittings={fittings} interview={interview} />;
@@ -55,7 +56,8 @@ export function Signature({ project }: { project: Project }) {
   if (slug === 'clue-styling') {
     const images = (kind: 'final' | 'context') =>
       (project.sections.find((s) => s.kind === kind)?.media ?? []).map((m) => resolveMedia(slug, m) as ResolvedImage);
-    const photos = images('final').map((img) => ({ ...img, zoom: largest(img) }));
+    const inHero = new Set(project.heroSet?.map((ref) => (resolveMedia(slug, ref) as ResolvedImage).src));
+    const photos = images('final').filter((img) => !inHero.has(img.src)).map((img) => ({ ...img, zoom: largest(img) }));
     const screens = images('context').map((img) => ({ ...img, label: img.alt.replace(/^clue\.eg /, '').replace(/^./, (c) => c.toUpperCase()) }));
     return <ClueSignature photos={photos} screens={screens} />;
   }

@@ -7,6 +7,8 @@ export type CategoryId = 'selected-works' | 'digital-fashion' | 'fashion-styling
 export type MediaRef =
   | { kind: 'image'; id: string; alt: string; caption?: string }
   | { kind: 'page'; doc: string; n: number; alt: string; caption?: string }
+  /** A piece taken out of a booklet or deck by scripts/media/extract.mjs: the work, with no slide around it. */
+  | { kind: 'clean'; id: string; alt: string; caption?: string }
   | { kind: 'video'; id: string; title: string; caption?: string };
 
 /** Mirrors the structure Aya uses in her booklets. */
@@ -29,12 +31,15 @@ export interface Section {
   kind: SectionKind;
   /** Overrides the chapter the section kind maps to by default. */
   chapter?: Chapter;
-  title: string;
+  /** Omit where the section label says enough. */
+  title?: string;
   body?: string[];
   /** Aya's own Arabic text, where her booklet has it. */
   bodyAr?: string[];
   quote?: { text: string; by: string };
   media: MediaRef[];
+  /** Kept for a signature interaction, but not listed on the page or in the index. */
+  hidden?: boolean;
 }
 
 export interface Project {
@@ -55,6 +60,8 @@ export interface Project {
   cover: MediaRef;
   /** First thing seen on the project page. */
   hero: MediaRef;
+  /** Tall photos shown three across at full width instead of a single hero. */
+  heroSet?: MediaRef[];
   sections: Section[];
   /** Full booklet or deck, for the "every page" view. */
   booklet?: { doc: string; title: string };

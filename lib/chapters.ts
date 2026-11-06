@@ -29,4 +29,4 @@ export const processChapters = ['why', 'research', 'development'] as const satis
 export const chapterOf = (s: Section): Chapter => s.chapter ?? byKind[s.kind];
 
 /** Sections in a chapter, in the order the project file lists them. */
-export const sectionsIn = (p: Project, c: Chapter) => p.sections.filter((s) => chapterOf(s) === c);
+export const sectionsIn = (p: Project, c: Chapter) => p.sections.filter((s) => !s.hidden && chapterOf(s) === c);

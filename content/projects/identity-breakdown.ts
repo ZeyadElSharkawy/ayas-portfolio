@@ -13,8 +13,11 @@ export const identityBreakdown: Project = {
     { label: 'Process', value: 'Identity analysis → moodboard → illustration → 3D' },
   ],
   palette: ['#8C0F1E', '#E0115F', '#F7A8C4', '#1A0A0D', '#F2E6E8'],
-  cover: { kind: 'page', doc: 'deck', n: 10, alt: 'CLO3D avatar in a black jacket and long maroon skirt' },
-  hero: { kind: 'page', doc: 'deck', n: 14, alt: "Final choice: Salma's movie outfit rendered in a red cinema setting" },
+  cover: { kind: 'clean', id: 'render-black-jacket', alt: 'CLO3D avatar in a black jacket and long maroon skirt' },
+  hero: { kind: 'clean', id: 'render-final', alt: "Final choice: Salma's movie outfit rendered in a red cinema setting" },
+  heroSet: [
+    { kind: 'clean', id: 'render-final', alt: "Final choice: Salma's movie outfit rendered in a red cinema setting" },
+  ],
   sections: [
     {
       kind: 'concept',
@@ -23,36 +26,32 @@ export const identityBreakdown: Project = {
         'The look starts with Salma: comfort, romance, nostalgia, CrossFit, red lipstick, pink Crocs, molten cake. For her, drama is a genre and life is a series of immersive experiences.',
         'The concept: "Crazy enough? Never enough!" Only the boldest dare to take part in the trend of wearing formal to the movies.',
       ],
-      media: [
-        { kind: 'page', doc: 'deck', n: 1, alt: 'Title page: Salma Amr, identity analysis' },
-        { kind: 'page', doc: 'deck', n: 2, alt: 'About her: words describing Salma on a crimson background' },
-        { kind: 'page', doc: 'deck', n: 3, alt: 'Concept: wearing formal to the movies' },
-        { kind: 'page', doc: 'deck', n: 6, alt: 'Concept reference: a red dress among cinema seats' },
-      ],
+      media: [],
     },
     {
       kind: 'research',
       title: 'Moodboard',
       media: [
         { kind: 'page', doc: 'moodboard', n: 1, alt: 'Moodboard: red lipstick, pink Crocs, cinema seats, candy and red textures' },
-        { kind: 'page', doc: 'deck', n: 7, alt: 'Moodboard page in the deck' },
       ],
     },
     {
       kind: 'sketches',
       title: 'Fashion illustration',
       media: [
-        { kind: 'page', doc: 'deck', n: 8, alt: 'Fashion illustrations of evening gowns' },
-        { kind: 'page', doc: 'deck', n: 9, alt: 'Fashion illustration of a casual look with pink Crocs' },
+        { kind: 'clean', id: 'illustration-pink', alt: "Fashion illustration of a hot-pink evening gown with a black off-shoulder neckline" },
+        { kind: 'clean', id: 'illustration-black', alt: "Pencil fashion illustration of a black evening gown with a sweeping train" },
+        { kind: 'clean', id: 'illustration-casual', alt: "Fashion illustration of a casual look with a red shirt, grey joggers and pink Crocs" },
       ],
     },
     {
       kind: 'digital',
       title: 'Built in CLO3D',
       media: [
-        { kind: 'page', doc: 'deck', n: 10, alt: 'CLO3D renders of two evening options' },
-        { kind: 'page', doc: 'deck', n: 11, alt: 'CLO3D renders in the cinema scene' },
-        { kind: 'page', doc: 'deck', n: 12, alt: 'CLO3D close-up of the pink sequinned top' },
+        { kind: 'clean', id: 'render-black-jacket', alt: "CLO3D render of the black jacket over a long velvet skirt" },
+        { kind: 'clean', id: 'render-pink-jacket', alt: "CLO3D render of a hot-pink fur jacket over the velvet skirt" },
+        { kind: 'clean', id: 'render-cinema', alt: "CLO3D render of the outfit in the cinema scene" },
+        { kind: 'clean', id: 'render-closeup', alt: "CLO3D close-up of the pink leopard sequinned top" },
       ],
     },
     {
@@ -63,8 +62,7 @@ export const identityBreakdown: Project = {
         "The outfit, styling and theme all fit the concept and the film's genre. It contrasts drama with laid-back comfort in colour, texture and feeling.",
       ],
       media: [
-        { kind: 'page', doc: 'deck', n: 13, alt: 'Movie concept: the Hepta poster' },
-        { kind: 'page', doc: 'deck', n: 14, alt: 'Final choice: the outfit in the cinema' },
+        { kind: 'clean', id: 'render-final', alt: "Final choice: Salma's movie outfit rendered in a red cinema setting" },
       ],
     },
   ],

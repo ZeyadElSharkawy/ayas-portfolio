@@ -11,7 +11,8 @@
     "media": "node scripts/media/build.mjs",
     "check:content": "node scripts/check-content.ts",
     "media:signature": "node scripts/media/signature-assets.mjs",
-    "media:cutouts": "node scripts/media/cutouts.mjs"
+    "media:cutouts": "node scripts/media/cutouts.mjs",
+    "media:clean": "node scripts/media/extract.mjs"
   },
   "dependencies": {
     "next": "16.4.3",

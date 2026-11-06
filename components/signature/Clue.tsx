@@ -9,7 +9,6 @@ import { Picture } from '@/components/media/Picture';
 import { useReducedMotion } from '@/lib/use-reduced-motion';
 import { cue } from '@/lib/sound';
 
-const SAND = '#E9DCC9';
 const STONE = '#C9B79C';
 const INK = '#2B2B2B';
 const PAPER = '#F7F3EE';
@@ -21,16 +20,7 @@ export type StoreScreen = ResolvedImage & { label: string };
 
 export function ClueSignature({ photos, screens }: { photos: LoupePhoto[]; screens: StoreScreen[] }) {
   return (
-    <section aria-labelledby="clue-sig-title" className="relative overflow-hidden py-16 sm:py-24" style={{ background: SAND, color: INK }}>
-      {/* Hard afternoon sun through a window, as on her shoot */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: 'repeating-linear-gradient(115deg, transparent 0 140px, rgb(90 60 30 / 0.07) 140px 230px)',
-          maskImage: 'linear-gradient(180deg, black, transparent 70%)',
-        }}
-      />
+    <section aria-labelledby="clue-sig-title" className="relative overflow-hidden py-16 sm:py-24" style={{ color: INK }}>
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
         <p className="label" style={{ color: BROWN }}>
           Clue · Styling for Clue Wear
@@ -88,7 +78,7 @@ function LightTable({ photos }: { photos: LoupePhoto[] }) {
           tabIndex={0}
           role="group"
           aria-roledescription="photo viewer"
-          aria-label={`Photo ${i + 1} of ${photos.length}. Left and right arrow keys change the photo.`}          className="relative aspect-[2/3] w-full select-none overflow-hidden rounded-sm shadow-[0_30px_60px_-30px_rgb(60_40_20/0.55)] outline-offset-4"
+          aria-label={`Photo ${i + 1} of ${photos.length}. Left and right arrow keys change the photo.`}          className="relative mx-auto aspect-[2/3] w-[min(100%,calc(82svh*0.667))] select-none overflow-hidden rounded-sm shadow-[0_30px_60px_-30px_rgb(60_40_20/0.55)] outline-offset-4"
           style={{ touchAction: pinned ? 'none' : 'pan-y', background: STONE }}
           onKeyDown={(e) => {
             if (e.key === 'ArrowRight') go(i + 1);

@@ -13,7 +13,7 @@ export function Video({ video }: { video: ResolvedVideo }) {
         poster={video.poster}
         width={video.width}
         height={video.height}
-        className="h-auto w-full rounded-sm bg-night"
+        className="mx-auto h-auto max-h-[82svh] w-full rounded-sm bg-night"
         style={{ aspectRatio: `${video.width} / ${video.height}` }}      >
         <source src={video.src} type="video/mp4" />
       </video>

@@ -2,6 +2,7 @@
 // Lookups throw on unknown ids so a typo in content fails the build instead of rendering a broken image.
 
 import manifest from '../content/media.generated.json' with { type: 'json' };
+import cleanManifest from '../content/clean.generated.json' with { type: 'json' };
 import type { MediaRef } from '../content/types.ts';
 
 export interface ResolvedImage {
@@ -56,6 +57,11 @@ export function resolveMedia(slug: string, ref: MediaRef): ResolvedMedia {
     case 'image': {
       const img = m.images?.[ref.id];
       if (!img) throw new Error(`Unknown image "${ref.id}" in ${slug}`);
+      return { kind: 'image', ...img, alt: ref.alt, caption: ref.caption };
+    }
+    case 'clean': {
+      const img = (cleanManifest as unknown as Record<string, Record<string, ImageEntry>>)[slug]?.[ref.id];
+      if (!img) throw new Error(`Unknown clean image "${ref.id}" in ${slug}. Run \`npm run media:clean\`.`);
       return { kind: 'image', ...img, alt: ref.alt, caption: ref.caption };
     }
     case 'page': {

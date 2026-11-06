@@ -73,6 +73,15 @@
 @keyframes needle-bob {
   50% { transform: translate(0, -5px); }
 }
+/* Cultural Echoes: her poster's instruments passing along the hero. */
+@keyframes frieze {
+  to { transform: translateX(-50%); }
+}
+/* Identity Breakdown: cinema bulbs taking turns. */
+@keyframes bulb-chase {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
 
 @layer base {
   html {
@@ -102,6 +111,24 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+  }
+  /* Identity Breakdown hero: a row of bulbs round the poster case, and a torn-off ticket. */
+  .bulbs {
+    background-image: radial-gradient(circle, #ffe9c2 0 2.5px, rgb(255 214 150 / 0.35) 3.5px, transparent 6px);
+    background-size: 24px 24px;
+    background-position: 0 0;
+  }
+  .bulbs-alt {
+    background-position: 12px 12px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .bulbs { animation: bulb-chase 1.6s ease-in-out infinite; }
+    .bulbs-alt { animation-delay: -0.8s; }
+  }
+  .ticket {
+    mask-image: radial-gradient(circle 11px at 0 50%, transparent 98%, #000), radial-gradient(circle 11px at 100% 50%, transparent 98%, #000);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
   }
   .link-line {
     text-decoration: underline;

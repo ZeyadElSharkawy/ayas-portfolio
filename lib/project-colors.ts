@@ -7,7 +7,7 @@ const base: Record<string, { paper: string; ink: string; accent: string }> = {
   'carina-arabesque': { paper: '#4E5B3A', ink: '#F2F0B8', accent: '#F6C79B' },
   'in-honor-of-our-women': { paper: '#F4EFE6', ink: '#1A1A1A', accent: '#B00F60' },
   glacier: { paper: '#0F2A5C', ink: '#E8EEF8', accent: '#7FD3E6' },
-  'into-her-skin': { paper: '#9C97D6', ink: '#14122B', accent: '#1F2A78' },
+  'into-her-skin': { paper: '#9D99CD', ink: '#14122B', accent: '#1F2A78' },
   arabia: { paper: '#7A1020', ink: '#EFE6D2', accent: '#E0C088' },
   'identity-breakdown': { paper: '#8C0F1E', ink: '#F7ECEE', accent: '#FBD3E0' },
   'clue-styling': { paper: '#E9DCC9', ink: '#2B2B2B', accent: '#6E5238' },

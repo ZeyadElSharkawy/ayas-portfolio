@@ -17,6 +17,10 @@ export const culturalEchoes: Project = {
   palette: ['#1F5B45', '#E89A2C', '#C2531F', '#5A1F33', '#F6E3CF'],
   cover: { kind: 'image', id: 'front', alt: 'Saffron vest over a teal top and wide teal trousers, standing in a stone archway in historic Cairo' },
   hero: { kind: 'image', id: 'side-2', alt: 'Profile on a Cairo rooftop at golden hour, wearing an oversized red and cream fabric headwrap' },
+  heroSet: [
+    { kind: 'image', id: 'side-2', alt: 'Profile on a Cairo rooftop at golden hour, wearing an oversized red and cream fabric headwrap' },
+    { kind: 'image', id: 'details', alt: 'Back of the teal top showing khayamiya appliqué motifs, with a saffron head scarf' },
+  ],
   sections: [
     {
       kind: 'concept',
@@ -30,24 +34,21 @@ export const culturalEchoes: Project = {
       ],
       media: [
         { kind: 'page', doc: 'poster', n: 1, alt: 'Project poster: Cultural Echoes, من أعماق المجتمع, collaged Cairo street figures on an orange ground framed by instrument icons' },
-        { kind: 'page', doc: 'booklet', n: 3, alt: 'Mind map: alternative Egyptian pop, rhythms (oud, tabla, qanun), lyrics, graphics, bands and social commentary' },
       ],
     },
     {
       kind: 'research',
-      title: 'Moodboards & palette',
-      media: [
-        { kind: 'page', doc: 'booklet', n: 4, alt: 'Moodboard of Egyptian album covers, band photos and street imagery' },
-        { kind: 'page', doc: 'booklet', n: 5, alt: 'Moodboard of tent-maker textiles, instruments and colour studies' },
-        { kind: 'page', doc: 'booklet', n: 2, alt: 'Colour palette: bottle green, saffron, burnt orange and plum' },
+            media: [
+        { kind: 'clean', id: 'moodboard', alt: 'Moodboard of Egyptian album covers, band photos and street imagery' },
+        { kind: 'clean', id: 'palette', alt: 'Colour palette: plum, burnt orange, saffron and bottle green' },
       ],
     },
     {
       kind: 'sketches',
       title: 'Sketches',
       media: [
-        { kind: 'page', doc: 'booklet', n: 6, alt: 'Fashion sketches of the look in green, orange and saffron' },
-        { kind: 'page', doc: 'booklet', n: 7, alt: 'Sketches of skirt and vest variations with a khayamiya curtain reference' },
+        { kind: 'clean', id: 'sketches-1', alt: "Fashion sketches of the look in green, orange and saffron" },
+        { kind: 'clean', id: 'sketches-2', alt: "Sketches of skirt and vest variations with a khayamiya curtain reference" },
       ],
     },
     {

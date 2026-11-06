@@ -1,8 +1,9 @@
+import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { projects, getProject } from '@/content/projects';
-import type { SectionKind } from '@/content/types';
+import type { MediaRef, SectionKind } from '@/content/types';
 import { chapterOf } from '@/lib/chapters';
 import { documentPages, largest, resolveMedia, type ResolvedImage } from '@/lib/media';
 import { projectColorsCss } from '@/lib/project-colors';
@@ -14,6 +15,7 @@ import { MediaGrid, type GridItem } from '@/components/project/MediaGrid';
 import { SectionNav } from '@/components/project/SectionNav';
 import { BookletViewer } from '@/components/project/BookletViewer';
 import { Video } from '@/components/project/Video';
+import { heroes } from '@/components/project/Heroes';
 import { Signature } from '@/components/signature/Signature';
 import { ProjectReveal } from '@/components/signature/ProjectReveal';
 
@@ -61,6 +63,8 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
 
   const { slug } = project;
   const hero = resolveMedia(slug, project.hero);
+  const heroSet = project.heroSet?.map((ref) => resolveMedia(slug, ref) as ResolvedImage);
+  const CustomHero = heroes[slug];
   const hoop =
     slug === 'into-her-skin' && hero.kind !== 'video'
       ? { src: '/media/into-her-skin/cutout/hoop', widths: [800, 1400], formats: ['webp'], width: 1400, height: 1988, color: 'transparent', alt: hero.alt }
@@ -68,8 +72,9 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
 
   // Every still in reading order feeds one lightbox; each grid item remembers its position in it.
   const lightbox: ResolvedImage[] = [];
-  const sections = project.sections.map((section, i) => {
-    const items: GridItem[] = section.media.map((ref) => {
+  const inHero = (ref: MediaRef) => project.heroSet?.some((h) => h.kind === ref.kind && 'id' in h && 'id' in ref && h.id === ref.id);
+  const sections = project.sections.filter((s) => !s.hidden).map((section, i) => {
+    const items: GridItem[] = section.media.filter((ref) => !inHero(ref)).map((ref) => {
       const media = resolveMedia(slug, ref);
       if (media.kind === 'video') return { media };
       lightbox.push(media);
@@ -103,7 +108,39 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
       {slug === 'identity-breakdown' && <ProjectReveal style="curtains" />}
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdHtml(jsonLd)} />
 
-      <article>
+      <article className="overflow-x-clip">
+        {CustomHero && heroSet ? (
+          <CustomHero project={project} images={heroSet} />
+        ) : heroSet ? (
+          // Whole portraits, side by side: one tall photo alone sits small, and cropping it cuts heads off.
+          <header className="mx-auto max-w-[1440px] px-4 pb-12 pt-10 sm:px-8 lg:pt-14">
+            <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-4">
+              <div>
+                <h1 className="font-display text-[clamp(2.75rem,1.5rem+5vw,6.5rem)] leading-[0.98] tracking-[-0.01em]">{project.title}</h1>
+                {project.titleAr && (
+                  <p lang="ar" dir="rtl" className="mt-3 text-right text-2xl text-ink-2 lg:text-left">
+                    {project.titleAr}
+                  </p>
+                )}
+              </div>
+              <div className="lg:pb-3">
+                <p className="max-w-[38ch] text-lg font-medium leading-snug sm:text-xl">{project.tagline}</p>
+                <div className="mt-5 flex gap-1.5" aria-hidden>
+                  {project.palette.map((hex) => (
+                    <span key={hex} className="h-2 w-8 rounded-full border border-line" style={{ background: hex }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div role="group" aria-label="Looks" tabIndex={0} className="-mx-4 mt-8 flex snap-x gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0 md:grid md:grid-cols-3 md:overflow-visible">
+              {heroSet.map((img, i) => (
+                <div key={img.src} className="w-[78vw] shrink-0 snap-center md:mx-auto md:w-[min(100%,calc(80svh*0.667))]" style={{ aspectRatio: `${img.width} / ${img.height}` }}>
+                  <Picture image={img} sizes="(min-width: 768px) 33vw, 78vw" priority={i === 0} className="h-full" />
+                </div>
+              ))}
+            </div>
+          </header>
+        ) : (
         <header className={`mx-auto grid max-w-[1440px] gap-8 px-4 pb-12 pt-10 sm:px-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 lg:pt-16 ${hoop ? 'lg:items-center' : 'lg:items-end'}`}>
           <div className="lg:pb-6">
             <h1 className="font-display text-[clamp(2.75rem,1.5rem+5vw,6.5rem)] leading-[0.98]">{project.title}</h1>
@@ -139,6 +176,7 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
           </div>
           )}
         </header>
+        )}
 
         <Signature project={project} />
 
@@ -160,53 +198,68 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
             <aside className="hidden lg:block">
               <div className="sticky top-24">
                 <p className="label mb-4 text-ink-2">On this page</p>
-                <SectionNav sections={sections.map((s) => ({ id: s.id, title: s.title }))} />
+                <SectionNav sections={sections.map((s) => ({ id: s.id, title: s.title ?? KIND_LABEL[s.kind] }))} />
               </div>
             </aside>
 
             <div className="space-y-20 lg:space-y-28">
-              {sections.map((s, i) => (
-                <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`} className="border-t border-line pt-8">
-                  {s.id === firstProcess && <span id="process" />}
-                  <p className="label text-accent">
-                    {String(i + 1).padStart(2, '0')} · {KIND_LABEL[s.kind]}
-                  </p>
-                  <h2 id={`${s.id}-title`} className="mt-2 font-display text-headline">
-                    {s.title}
-                  </h2>
-
-                  {(s.body || s.quote || s.bodyAr) && (
-                    <div className="mt-6 grid gap-8 lg:grid-cols-2">
-                      {s.body && (
-                        <div className="max-w-[62ch] space-y-4 text-lg leading-relaxed">
-                          {s.body.map((para) => (
-                            <p key={para}>{para}</p>
-                          ))}
+              {sections.map((s, i) => {
+                // One picture doesn't need a gallery: it shares the row with the words instead of sitting under them.
+                const solo = s.items.length === 1 && s.items[0].media.kind !== 'video' ? (s.items[0].media as ResolvedImage) : null;
+                const heading = (
+                  <>
+                    {s.id === firstProcess && <span id="process" />}
+                    <p className="label text-accent">
+                      {String(i + 1).padStart(2, '0')} · {KIND_LABEL[s.kind]}
+                    </p>
+                    {s.title && <h2 className="mt-2 font-display text-headline">{s.title}</h2>}
+                  </>
+                );
+                return (
+                  <section key={s.id} id={s.id} aria-label={s.title ?? KIND_LABEL[s.kind]} className="border-t border-line pt-8">
+                    {solo && s.body && s.bodyAr ? (
+                      <>
+                        {heading}
+                        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-12">
+                          <Body paragraphs={s.body} />
+                          <div className="lg:w-[var(--solo)]" style={{ '--solo': `min(30vw, calc(72svh * ${(solo.width / solo.height).toFixed(4)}))` } as CSSProperties}>
+                            <MediaGrid items={s.items} />
+                          </div>
+                          <BodyAr paragraphs={s.bodyAr} />
                         </div>
-                      )}
-                      {s.quote && (
-                        <blockquote className="border-l border-accent pl-6 lg:self-start">
-                          <p className="text-xl font-medium leading-snug sm:text-2xl">&ldquo;{s.quote.text}&rdquo;</p>
-                          <footer className="label mt-4 text-ink-2">{s.quote.by}</footer>
-                        </blockquote>
-                      )}
-                      {s.bodyAr && (
-                        <div lang="ar" dir="rtl" className="max-w-[62ch] space-y-4 bg-tint p-6 text-xl leading-loose">
-                          {s.bodyAr.map((para) => (
-                            <p key={para}>{para}</p>
-                          ))}
+                      </>
+                    ) : solo ? (
+                      <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-12 lg:gap-12">
+                        <div className="lg:col-span-5">
+                          {heading}
+                          {s.quote && <div className="mt-6"><Quote quote={s.quote} /></div>}
+                          {s.body && <div className="mt-6"><Body paragraphs={s.body} /></div>}
+                          {s.bodyAr && <div className="mt-6"><BodyAr paragraphs={s.bodyAr} /></div>}
                         </div>
-                      )}
-                    </div>
-                  )}
-
-                  {s.items.length > 0 && (
-                    <div className="mt-10">
-                      <MediaGrid items={s.items} />
-                    </div>
-                  )}
-                </section>
-              ))}
+                        <div className="lg:col-span-7">
+                          <MediaGrid items={s.items} />
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        {heading}
+                        {(s.body || s.quote || s.bodyAr) && (
+                          <div className="mt-6 grid gap-8 lg:grid-cols-2">
+                            {s.body && <Body paragraphs={s.body} />}
+                            {s.quote && <Quote quote={s.quote} />}
+                            {s.bodyAr && <BodyAr paragraphs={s.bodyAr} card />}
+                          </div>
+                        )}
+                        {s.items.length > 0 && (
+                          <div className="mt-10">
+                            <MediaGrid items={s.items} />
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </section>
+                );
+              })}
 
               {project.reflection && (
                 <section aria-labelledby="reflection-title" className="border-t border-line pt-8">
@@ -262,6 +315,35 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
         </nav>
       </article>
     </>
+  );
+}
+
+function Body({ paragraphs }: { paragraphs: string[] }) {
+  return (
+    <div className="max-w-[62ch] space-y-4 text-lg leading-relaxed">
+      {paragraphs.map((para) => (
+        <p key={para}>{para}</p>
+      ))}
+    </div>
+  );
+}
+
+function BodyAr({ paragraphs, card = false }: { paragraphs: string[]; card?: boolean }) {
+  return (
+    <div lang="ar" dir="rtl" className={`max-w-[62ch] space-y-4 text-xl leading-loose ${card ? 'bg-tint p-6' : ''}`}>
+      {paragraphs.map((para) => (
+        <p key={para}>{para}</p>
+      ))}
+    </div>
+  );
+}
+
+function Quote({ quote }: { quote: { text: string; by: string } }) {
+  return (
+    <blockquote className="border-l border-accent pl-6 lg:self-start">
+      <p className="text-xl font-medium leading-snug sm:text-2xl">&ldquo;{quote.text}&rdquo;</p>
+      <footer className="label mt-4 text-ink-2">{quote.by}</footer>
+    </blockquote>
   );
 }
 

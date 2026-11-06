@@ -34,6 +34,9 @@ for (const p of projects) {
     }
   }
 
+  const slides = refs.filter((r) => r.kind === 'page').map((r) => (r.kind === 'page' ? `${r.doc} p${r.n}` : ''));
+  if (slides.length) console.log(`  ${p.slug}: pages still shown as slides: ${slides.join(', ')}`);
+
   const used = new Set(refs.filter((r) => r.kind === 'image').map((r) => r.id));
   const unused = Object.keys(projectMedia(p.slug).images ?? {}).filter((id) => !used.has(id));
   const videos = Object.keys(projectMedia(p.slug).videos ?? {});
