@@ -74,7 +74,7 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
   const lightbox: ResolvedImage[] = [];
   const inHero = (ref: MediaRef) => project.heroSet?.some((h) => h.kind === ref.kind && 'id' in h && 'id' in ref && h.id === ref.id);
   const sections = project.sections.filter((s) => !s.hidden).map((section, i) => {
-    const items: GridItem[] = section.media.filter((ref) => !inHero(ref)).map((ref) => {
+    const items: GridItem[] = section.media.filter((ref) => section.repeatsHero || !inHero(ref)).map((ref) => {
       const media = resolveMedia(slug, ref);
       if (media.kind === 'video') return { media };
       lightbox.push(media);
@@ -198,7 +198,7 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
             <aside className="hidden lg:block">
               <div className="sticky top-24">
                 <p className="label mb-4 text-ink-2">On this page</p>
-                <SectionNav sections={sections.map((s) => ({ id: s.id, title: s.title ?? KIND_LABEL[s.kind] }))} />
+                <SectionNav sections={sections.map((s) => ({ id: s.id, title: s.title ?? s.label ?? KIND_LABEL[s.kind] }))} />
               </div>
             </aside>
 
@@ -210,13 +210,13 @@ export default async function ProjectPage({ params }: PageProps<'/work/[slug]'>)
                   <>
                     {s.id === firstProcess && <span id="process" />}
                     <p className="label text-accent">
-                      {String(i + 1).padStart(2, '0')} · {KIND_LABEL[s.kind]}
+                      {String(i + 1).padStart(2, '0')} · {s.label ?? KIND_LABEL[s.kind]}
                     </p>
                     {s.title && <h2 className="mt-2 font-display text-headline">{s.title}</h2>}
                   </>
                 );
                 return (
-                  <section key={s.id} id={s.id} aria-label={s.title ?? KIND_LABEL[s.kind]} className="border-t border-line pt-8">
+                  <section key={s.id} id={s.id} aria-label={s.title ?? s.label ?? KIND_LABEL[s.kind]} className="border-t border-line pt-8">
                     {solo && s.body && s.bodyAr ? (
                       <>
                         {heading}

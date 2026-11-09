@@ -4286,6 +4286,18 @@
         "blur": "data:image/webp;base64,UklGRq4AAABXRUJQVlA4IKIAAABQBACdASoQABwAPu1iqU2ppaOiMAgBMB2JQBOgMZAanO4K/SQoqq22/RaAAP63UXYa8S5fXlanwxjukyQ7NbqFoFb6tNkabqn1lq31Su1Bx5MgCqmpxQW9HzbTBv39dnx0Ftw/2cwayPUTbgfmZfVoOjwFsMEm9aODNIUA+NiXvj8thxfqI5nBNux0X8qUHzpYtXyalxINmJG2tOcq6cGsAAA=",
         "source": "1 Selected Works/1.4 Into her Skin/1.4 Shahenda Interview.mp4",
         "key": "73405636-1792826235359--"
+      },
+      "film": {
+        "src": "/media/into-her-skin/video/film.mp4",
+        "poster": "/media/into-her-skin/poster/film.webp",
+        "width": 832,
+        "height": 464,
+        "duration": 106.09,
+        "hasAudio": true,
+        "sizeMB": 10.5,
+        "blur": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADwAQCdASoQAAkAA4BaJYwCdAECl9Pwn6AA+2TjGEl4UpVWXQOgeD5DxO31KDEmDOQ3aT4hx2j4i4V/aW9AAA==",
+        "source": "1 Selected Works/1.4 Into her Skin/1.4 Final Video.mp4",
+        "key": "16269232-1794233976845--"
       }
     }
   }

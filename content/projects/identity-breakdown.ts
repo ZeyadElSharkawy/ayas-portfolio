@@ -13,6 +13,14 @@ export const identityBreakdown: Project = {
     { label: 'Process', value: 'Identity analysis → moodboard → illustration → 3D' },
   ],
   palette: ['#8C0F1E', '#E0115F', '#F7A8C4', '#1A0A0D', '#F2E6E8'],
+  home: {
+    lead: { kind: 'clean', id: 'render-final', alt: 'The final look on a cinema aisle runway under a spotlight' },
+    focus: '50% 42%',
+    more: [
+      { kind: 'clean', id: 'render-black-jacket', alt: 'CLO3D avatar in a black jacket and long maroon skirt' },
+      { kind: 'clean', id: 'render-pink-jacket', alt: 'CLO3D avatar in a pink faux-fur jacket and long maroon skirt' },
+    ],
+  },
   cover: { kind: 'clean', id: 'render-black-jacket', alt: 'CLO3D avatar in a black jacket and long maroon skirt' },
   hero: { kind: 'clean', id: 'render-final', alt: "Final choice: Salma's movie outfit rendered in a red cinema setting" },
   heroSet: [

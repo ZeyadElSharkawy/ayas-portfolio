@@ -135,6 +135,13 @@ export const sources = [
       { id: 'wilcom', page: 22, rect: [0.08, 0.42, 0.92, 0.83] },
       { id: 'pattern-1', page: 30, rect: [0.58, 0.06, 0.9, 0.47] },
       { id: 'pattern-2', page: 30, rect: [0.58, 0.5, 0.9, 0.88] },
+      // Her jewellery process page, step by step, without its step titles.
+      { id: 'jewel-sketch', page: 33, rect: [0, 0.012, 0.31, 0.175] },
+      { id: 'jewel-drawing', page: 33, rect: [0.673, 0.03, 0.98, 0.212] },
+      { id: 'jewel-wax', page: 33, rect: [0.08, 0.205, 0.925, 0.43], erase: [[0.04, 0.198, 0.15, 0.232], [0.34, 0.198, 0.53, 0.252], [0.58, 0.208, 0.745, 0.29]] },
+      { id: 'jewel-cast', page: 33, rect: [0.01, 0.482, 0.46, 0.62], erase: [[0.165, 0.49, 0.32, 0.542]] },
+      { id: 'jewel-solder', page: 33, rect: [0.465, 0.48, 0.98, 0.62], erase: [[0.75, 0.571, 1, 0.63]] },
+      { id: 'jewel-final', page: 33, rect: [0, 0.742, 1, 1] },
       { id: 'storyboard-1', page: 34, rect: [0.06, 0.18, 0.97, 0.93] },
       { id: 'storyboard-2', page: 35, rect: [0.05, 0.03, 0.98, 0.9] },
     ],
@@ -186,7 +193,7 @@ export const sources = [
     file: '1 Selected Works/1.1 Cultural Echoes/1.1 Cultural Echoes Booklet (do not use these pics).pdf',
     items: [
       { id: 'palette', page: 2, rotate: 90, rect: [0.08, 0.52, 0.92, 0.84] },
-      { id: 'moodboard', page: 4, rect: [0.02, 0.1, 0.98, 0.93] },
+      { id: 'moodboard', page: 4, rotate: 90, rect: [0.05, 0.02, 0.876, 0.98], trim: true },
       { id: 'sketches-1', page: 6, rotate: 270, rect: [0.05, 0.22, 0.92, 0.92] },
       { id: 'sketches-2', page: 7, rotate: 90, rect: [0.1, 0.17, 0.92, 0.89] },
     ],

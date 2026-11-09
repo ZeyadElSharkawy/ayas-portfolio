@@ -20,7 +20,7 @@ export const arabia: Project = {
   heroSet: [
     { kind: 'clean', id: 'niche-1', alt: 'Look 1: cream calligraphy shirt over brown trousers' },
     { kind: 'clean', id: 'niche-2', alt: 'Look 2: maroon abaya with calligraphy-printed panels and cream hijab' },
-    { kind: 'clean', id: 'niche-3', alt: 'Look 3: sand-coloured cape dress with maroon accents' },
+    { kind: 'clean', id: 'niche-3', alt: 'Look 3: the sand-coloured butterfly abaya with maroon accents' },
   ],
   sections: [
     {
@@ -82,10 +82,11 @@ export const arabia: Project = {
     },
     {
       kind: 'final',
-      title: 'Look 3: the cape',
+      title: 'Look 3: the butterfly abaya',
       media: [
+        { kind: 'clean', id: 'look3-1', alt: "Look 3, the butterfly abaya from the front, gold calligraphy on the chest" },
         { kind: 'clean', id: 'look3-2', alt: "Look 3, side" },
-        { kind: 'clean', id: 'look3-3', alt: "Look 3, front at an angle" },
+        { kind: 'clean', id: 'look3-3', alt: "Look 3, back" },
         { kind: 'clean', id: 'look3-4', alt: "Look 3, other side" },
       ],
     },
@@ -119,9 +120,9 @@ export const arabia: Project = {
       kind: 'film',
       title: 'Animation',
       media: [
+        { kind: 'video', id: 'abaya-render', title: 'Fashion show: the rendered abaya on the runway' },
         { kind: 'video', id: 'turntable-shirt', title: 'Turntable: Look 1' },
         { kind: 'video', id: 'turntable-abaya', title: 'Turntable: Look 2' },
-        { kind: 'video', id: 'abaya-render', title: 'Runway: Look 2, rendered' },
         { kind: 'video', id: 'walk-unrendered', title: 'Runway: Look 3, walk preview' },
       ],
     },

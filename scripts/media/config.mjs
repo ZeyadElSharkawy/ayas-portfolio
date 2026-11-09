@@ -54,7 +54,10 @@ export const projects = [
   {
     slug: 'into-her-skin',
     documents: [{ id: 'booklet', file: '1 Selected Works/1.4 Into her Skin/1.4 Into her skin hoop booklet.pdf' }],
-    videos: [{ id: 'interview', file: '1 Selected Works/1.4 Into her Skin/1.4 Shahenda Interview.mp4' }],
+    videos: [
+      { id: 'film', file: '1 Selected Works/1.4 Into her Skin/1.4 Final Video.mp4' },
+      { id: 'interview', file: '1 Selected Works/1.4 Into her Skin/1.4 Shahenda Interview.mp4' },
+    ],
   },
   {
     slug: 'arabia',

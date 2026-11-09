@@ -14,6 +14,13 @@ export const inHonorOfOurWomen: Project = {
     { label: 'Techniques', value: 'Machine embroidery, photography' },
   ],
   palette: ['#F4EFE6', '#E0157A', '#1A1A1A', '#FFFFFF'],
+  home: {
+    lead: { kind: 'page', doc: 'booklet', n: 68, alt: 'The installation: the central embroidered banner between strips of black-and-white photographs' },
+    more: [
+      { kind: 'page', doc: 'booklet', n: 63, alt: 'The central banner in detail' },
+      { kind: 'page', doc: 'booklet', n: 69, alt: 'Hanging archive photographs with embroidered Arabic names' },
+    ],
+  },
   cover: { kind: 'page', doc: 'booklet', n: 64, alt: 'Embroidered banner panel: a pink line portrait beside a handwritten Arabic tribute on off-white cloth with hot-pink borders' },
   hero: { kind: 'page', doc: 'booklet', n: 68, alt: 'The installation: a central embroidered banner flanked by strips of black-and-white photographs' },
   sections: [

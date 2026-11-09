@@ -12,7 +12,8 @@
     "check:content": "node scripts/check-content.ts",
     "media:signature": "node scripts/media/signature-assets.mjs",
     "media:cutouts": "node scripts/media/cutouts.mjs",
-    "media:clean": "node scripts/media/extract.mjs"
+    "media:clean": "node scripts/media/extract.mjs",
+    "media:about": "node scripts/media/about.mjs"
   },
   "dependencies": {
     "next": "16.4.3",

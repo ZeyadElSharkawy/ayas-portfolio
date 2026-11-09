@@ -15,6 +15,7 @@ export const clueStyling: Project = {
     { label: 'Edits', value: 'Beachwear, loungewear, new this week' },
   ],
   palette: ['#E9DCC9', '#C9B79C', '#2B2B2B', '#F7F3EE', '#8A6A4F'],
+  home: { focus: '50% 4%' },
   cover: { kind: 'image', id: 'img-9039', alt: 'Model in a black off-shoulder top with a statement belt against a sand-coloured wall' },
   hero: { kind: 'image', id: 'img-9118', alt: 'Model in sunglasses and a sage shirt tied with a printed scarf, leaning into sunlight' },
   heroSet: [

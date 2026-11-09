@@ -3,6 +3,8 @@
 // No manifest import, so client components can use this.
 
 const base: Record<string, { paper: string; ink: string; accent: string }> = {
+  // The home page while its hero is on screen: the aubergine of the hero, from the stage light in her portrait.
+  home: { paper: '#200E27', ink: '#F1E8F4', accent: '#D6C3EA' },
   'cultural-echoes': { paper: '#1F5B45', ink: '#F6E3CF', accent: '#F4B860' },
   'carina-arabesque': { paper: '#4E5B3A', ink: '#F2F0B8', accent: '#F6C79B' },
   'in-honor-of-our-women': { paper: '#F4EFE6', ink: '#1A1A1A', accent: '#B00F60' },

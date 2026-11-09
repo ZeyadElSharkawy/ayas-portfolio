@@ -14,6 +14,11 @@ A new site from scratch; the 3D atelier below stays on `main` as the archive.
 - Glacier, Carina and Clue use a full-width lookbook hero (`heroSet`): three uncropped portraits.
 - Fonts: Playfair Display for titles, Amiri for Arabic, and Proxima Nova for text (demo cuts for now, with Montserrat filling missing characters).
 - CV download and Contact are in the header on every page.
+- Home page: an About hero above the statement and work list. Name left, rounded portrait centre (tilts with the mouse, drifts on scroll), her text right, on colours taken from the portrait (chosen over a version with her studio still life). The page wears those colours while the hero is on screen, then fades to the selected project's; a stitched seam with parallax leads into the work (9 Nov 2026).
+- Home hero reworked after a reference the user sent (9 Nov 2026): hello cycling through English, Arabic, German and French, "I’m Aya Hafez", role, text, Download CV and Let’s connect on the left; her background-less photo on the right with her sketch under a stitched lens that follows the pointer (the reference’s draggable ID card was judged not artistic enough); a sliding strip of her skills as marks closes the hero, then the seam and the work list.
+- Then trimmed (9 Nov 2026): hello in English, Arabic and German only; the sketch lens removed, so she is a plain cut-out; her “my goal” paragraph in the hero text; the header is see-through over the hero only and switches with the page colours.
+- Home statement: "Where creative vision meets technical precision." Each project can choose its home lead photo and crop (`home` in its content file), so no heads are cut off (9 Nov 2026).
+- Glacier keeps only: Behind perfection, colour palette and moodboard, jewellery, sketches, final design, lookbook, exhibition, film. No storyboards on Glacier or Into Her Skin. Into Her Skin has its final film; Arabia's fashion show video leads its Animation section, and Look 3 is the butterfly abaya (9 Nov 2026).
 - Kept from the first build: the media pipeline, processed media, the copy drafted from her booklets, and the signature interactions. Dropped: all 3D, the needle cursor, stitch transitions and the site-wide sound toggle.
 
 **Status:** home, project pages, About/CV, 404, robots and sitemap are built.

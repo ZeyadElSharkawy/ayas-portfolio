@@ -13,6 +13,8 @@ export interface FolioEntry {
   titleAr?: string;
   /** Cover first, then two more finished-work images. */
   outcome: PictureData[];
+  /** Show whole pictures rather than filling their frames (round ones). */
+  contain?: boolean;
   process: { title: string; images: PictureData[] }[];
 }
 
@@ -28,12 +30,14 @@ const sameMedia = (a: MediaRef, b: MediaRef) =>
   a.kind === b.kind && (a.kind === 'page' ? b.kind === 'page' && a.doc === b.doc && a.n === b.n : 'id' in b && a.id === b.id);
 
 function entry(p: Project): FolioEntry {
-  const finished = stillsOnly(sectionsIn(p, 'outcome').flatMap((s) => s.media)).filter((r) => !sameMedia(r, p.cover));
+  const lead = p.home?.lead ?? p.cover;
+  const finished = p.home?.more ?? stillsOnly(sectionsIn(p, 'outcome').flatMap((s) => s.media)).filter((r) => !sameMedia(r, lead));
   return {
     slug: p.slug,
     title: p.title,
     titleAr: p.titleAr,
-    outcome: [p.cover, ...finished.slice(0, 2)].map((r) => picture(p, r)),
+    contain: p.home?.contain,
+    outcome: [{ ...picture(p, lead), focus: p.home?.focus }, ...finished.slice(0, 2).map((r) => picture(p, r))],
     process: processChapters
       .map((c) => ({
         title: chapterTitles[c],

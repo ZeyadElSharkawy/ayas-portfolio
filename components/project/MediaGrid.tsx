@@ -14,9 +14,10 @@ export function MediaGrid({ items, horizontal = false }: { items: GridItem[]; ho
   const wide = videos.filter((v) => v.width >= v.height);
   const tall = videos.filter((v) => v.width < v.height);
   const stills = items.filter((i): i is { media: ResolvedImage; lightboxIndex: number } => i.media.kind !== 'video');
-  // Few stills look lost in a 3-column masonry.
-  const cols = Math.min(3, Math.max(1, stills.length)) as 1 | 2 | 3;
-  const colClass = { 1: 'sm:columns-1', 2: 'sm:columns-2', 3: 'sm:columns-2 lg:columns-3' }[cols];
+  // Few stills look lost in a 3-column masonry; eight fill two rows of four rather than leaving a gap in three.
+  const n = stills.length;
+  const cols = (n >= 8 && n % 3 !== 0 && n % 4 === 0 ? 4 : Math.min(3, Math.max(1, n))) as 1 | 2 | 3 | 4;
+  const colClass = { 1: 'sm:columns-1', 2: 'sm:columns-2', 3: 'sm:columns-2 lg:columns-3', 4: 'sm:columns-2 lg:columns-4' }[cols];
 
   return (
     <div className="space-y-6">

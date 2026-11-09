@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { aboutText } from '@/content/about';
-import { activities, contact, courses, education, experience, languages, skills, software, summary, type Role } from '@/content/cv';
+import { contact, courses, education, experience, languages, skills, software, summary, type Role } from '@/content/cv';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -88,9 +88,6 @@ export default function About() {
               <dd className="mt-2 text-[14px] leading-relaxed">{languages.map((l) => `${l.name} (${l.level})`).join(', ')}</dd>
             </div>
           </dl>
-        </Block>
-        <Block title="Leadership and activities">
-          <Roles roles={activities} />
         </Block>
         <Block title="Courses">
           <ul className="grid gap-1 text-[14px] text-ink-2 sm:grid-cols-2">

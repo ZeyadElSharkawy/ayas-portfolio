@@ -38,7 +38,8 @@ export const culturalEchoes: Project = {
     },
     {
       kind: 'research',
-            media: [
+      label: 'Moodboard',
+      media: [
         { kind: 'clean', id: 'moodboard', alt: 'Moodboard of Egyptian album covers, band photos and street imagery' },
         { kind: 'clean', id: 'palette', alt: 'Colour palette: plum, burnt orange, saffron and bottle green' },
       ],
@@ -54,6 +55,7 @@ export const culturalEchoes: Project = {
     {
       kind: 'final',
       title: 'The look',
+      repeatsHero: true,
       media: [
         { kind: 'image', id: 'front', alt: 'Front view in a stone archway: saffron vest, teal top and wide teal trousers' },
         { kind: 'image', id: 'details2', alt: 'Close-up of the appliquéd saffron vest and an oversized red and cream fabric headwrap' },
@@ -61,7 +63,6 @@ export const culturalEchoes: Project = {
         { kind: 'image', id: 'back-2', alt: 'Standing in an archway wearing the stacked fabric headwrap, saffron vest and teal trousers' },
         { kind: 'image', id: 'side', alt: 'Beside turquoise arched doors: saffron vest, teal top and a panelled orange and cream skirt' },
         { kind: 'image', id: 'back', alt: 'Walking away down a narrow Cairo alley in the panelled orange and cream skirt' },
-        { kind: 'image', id: 'side-2', alt: 'Profile on a Cairo rooftop at golden hour' },
       ],
     },
     {

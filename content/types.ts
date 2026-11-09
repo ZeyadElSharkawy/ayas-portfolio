@@ -31,6 +31,8 @@ export interface Section {
   kind: SectionKind;
   /** Overrides the chapter the section kind maps to by default. */
   chapter?: Chapter;
+  /** Replaces the section kind in the small label and the page index. */
+  label?: string;
   /** Omit where the section label says enough. */
   title?: string;
   body?: string[];
@@ -38,6 +40,8 @@ export interface Section {
   bodyAr?: string[];
   quote?: { text: string; by: string };
   media: MediaRef[];
+  /** Shows photos from the project's heroSet here too (they're left out of sections by default). */
+  repeatsHero?: boolean;
   /** Kept for a signature interaction, but not listed on the page or in the index. */
   hidden?: boolean;
 }
@@ -60,6 +64,8 @@ export interface Project {
   cover: MediaRef;
   /** First thing seen on the project page. */
   hero: MediaRef;
+  /** The home page's outcome view: a wide lead (5:4 on desktop, 4:5 on phones) and two portraits under it. Defaults to the cover and the first finished photos. `focus` is the lead's CSS object-position; `contain` shows all of it (for round pictures). */
+  home?: { lead?: MediaRef; focus?: string; contain?: boolean; more?: MediaRef[] };
   /** Tall photos shown three across at full width instead of a single hero. */
   heroSet?: MediaRef[];
   sections: Section[];

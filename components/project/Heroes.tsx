@@ -118,15 +118,16 @@ const NICHE = `url("data:image/svg+xml,${encodeURIComponent(
 
 /** Her three looks, each standing in a niche: the arches of the mosques her calligraphy belongs to. */
 function ArabiaHero({ project, images }: HeroProps) {
+  // Stacked until the screen is wide enough for title and niches side by side (not on a portrait iPad).
   return (
-    <header className="mx-auto grid max-w-[1440px] grid-cols-[minmax(0,1fr)] items-center gap-8 px-4 pt-8 sm:px-8 lg:grid-cols-12 lg:pt-10">
-      <div className="lg:col-span-5">
+    <header className="mx-auto grid max-w-[1440px] grid-cols-[minmax(0,1fr)] items-center gap-8 px-4 pt-8 sm:px-8 lg:pt-10 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+      <div>
         <h1 className="font-display text-[clamp(2.75rem,1.5rem+5vw,6.5rem)] leading-[0.98] tracking-[-0.01em]">{project.title}</h1>
         <p className="mt-6 max-w-[34ch] text-lg font-medium leading-snug sm:text-xl">{project.tagline}</p>
       </div>
-      <div className="flex items-end justify-center gap-2 sm:gap-4 lg:col-span-7">
+      <div className="flex items-end justify-center gap-2 sm:gap-4 xl:justify-end">
         {images.map((img, i) => (
-          <div key={img.src} className={`relative aspect-[2/3.4] lg:w-auto ${i === 1 ? 'w-[38%] lg:h-[80svh]' : 'w-[30%] lg:h-[66svh]'}`}>
+          <div key={img.src} className={`relative aspect-[2/3.4] ${i === 1 ? 'w-[min(38%,calc(80svh*0.588))]' : 'w-[min(30%,calc(66svh*0.588))]'}`}>
             <div aria-hidden className="absolute inset-0 bg-[#EFE6D2]" style={{ maskImage: NICHE, WebkitMaskImage: NICHE, maskSize: '100% 100%', WebkitMaskSize: '100% 100%', maskRepeat: 'no-repeat', WebkitMaskRepeat: 'no-repeat' }} />
             <div className="absolute inset-x-[6%] bottom-[3%] top-[9%]">
               <Picture image={img} sizes="(min-width: 1024px) 18vw, 32vw" priority={i === 1} fit="contain" placeholder={false} className="h-full" />

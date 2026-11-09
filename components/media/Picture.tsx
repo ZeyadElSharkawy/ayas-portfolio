@@ -5,7 +5,7 @@ import { srcSet, largest } from '@/lib/media-urls';
 // so this skips next/image and serves the files directly, with the blur placeholder as background.
 
 /** What an image needs; the home page's lean entries leave out `blur` to keep its payload small. */
-export type PictureData = Omit<ResolvedImage, 'kind' | 'blur' | 'caption'> & { blur?: string; caption?: string };
+export type PictureData = Omit<ResolvedImage, 'kind' | 'blur' | 'caption'> & { blur?: string; caption?: string; /** CSS object-position when cropped. */ focus?: string };
 
 export function Picture({
   image,
@@ -47,6 +47,7 @@ export function Picture({
         className="h-full w-full"
         style={{
           objectFit: fit,
+          ...(image.focus && { objectPosition: image.focus }),
           ...(placeholder && {
             ...(image.blur && { backgroundImage: `url(${image.blur})` }),
             backgroundSize: 'cover',

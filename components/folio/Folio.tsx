@@ -3,7 +3,8 @@
 // Concept C, "index and folio": every project title on the left, the work beside it,
 // and one switch between the finished outcome and the process behind it.
 // Desktop: hover or focus a title to show it. Mobile: one stacked card per project, same switch.
-// The selected project colours the whole page; the first is selected on load (see app/page.tsx).
+// Below the hero the selected project colours the whole page, the first on arrival. While the hero
+// (`heroId`) still fills most of the screen, the page keeps the hero's own colours instead.
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -40,12 +41,12 @@ function Outcome({ e, sizes }: { e: FolioEntry; sizes: [string, string] }) {
   const [lead, ...rest] = e.outcome;
   return (
     <div className="grid grid-cols-2 gap-2">
-      <div className="col-span-2 aspect-[4/5] overflow-hidden bg-tint md:aspect-[5/4]">
-        <Picture image={lead} sizes={sizes[0]} className="h-full" />
+      <div className={`col-span-2 aspect-[4/5] overflow-hidden md:aspect-[5/4] ${e.contain ? '' : 'bg-tint'}`}>
+        <Picture image={lead} sizes={sizes[0]} fit={e.contain ? 'contain' : 'cover'} placeholder={!e.contain} className="h-full" />
       </div>
       {rest.map((img) => (
-        <div key={img.src} className="aspect-[3/4] overflow-hidden bg-tint">
-          <Picture image={img} sizes={sizes[1]} className="h-full" />
+        <div key={img.src} className={`aspect-[3/4] overflow-hidden ${e.contain ? '' : 'bg-tint'}`}>
+          <Picture image={img} sizes={sizes[1]} fit={e.contain ? 'contain' : 'cover'} placeholder={!e.contain} className="h-full" />
         </div>
       ))}
     </div>
@@ -74,18 +75,49 @@ function Process({ e }: { e: FolioEntry }) {
   );
 }
 
-export function Folio({ entries }: { entries: FolioEntry[] }) {
+export function Folio({ entries, heroId }: { entries: FolioEntry[]; heroId?: string }) {
   const [active, setActive] = useState(0);
+  const [inWork, setInWork] = useState(!heroId);
   const [view, setView] = useState<View>('outcome');
   const e = entries[active];
   const cards = useRef<HTMLOListElement>(null);
 
+  // In the work once the hero's bottom edge has risen above the middle of the screen.
+  useEffect(() => {
+    const hero = heroId ? document.getElementById(heroId) : null;
+    if (!hero) return;
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      setInWork(hero.getBoundingClientRect().bottom < window.innerHeight * 0.5);
+    };
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, [heroId]);
+
+  // The page colours fade between the hero's and the project's (they're registered with @property).
   useEffect(() => {
     const root = document.documentElement.style;
-    const colors = Object.entries(projectColors(entries[active].slug));
+    const colors = Object.entries(projectColors(inWork ? entries[active].slug : 'home'));
     colors.forEach(([k, v]) => root.setProperty(k, v));
     return () => colors.forEach(([k]) => root.removeProperty(k));
-  }, [active, entries]);
+  }, [active, entries, inWork]);
+
+  // The header is see-through over the hero and solid in the work. It flips in the same frame as the
+  // colours above, so its fill fades with the page instead of trailing it (globals.css, data-in-work).
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-in-work', inWork);
+    return () => document.documentElement.removeAttribute('data-in-work');
+  }, [inWork]);
 
   // Phones have no hover: the card crossing the middle of the screen is the selected one.
   useEffect(() => {
@@ -100,11 +132,11 @@ export function Folio({ entries }: { entries: FolioEntry[] }) {
 
   return (
     <>
-      <PageFinish slug={e.slug} />
+      {inWork && <PageFinish slug={e.slug} />}
       {/* Desktop: index and folio side by side */}
       <div className="hidden grid-cols-12 gap-8 md:grid">
         <nav aria-label="Projects" className="col-span-5 self-start md:sticky md:top-24">
-          <ol>
+          <ol className="grid gap-1">
             {entries.map((p, i) => (
               <li key={p.slug}>
                 <Link
@@ -112,7 +144,7 @@ export function Folio({ entries }: { entries: FolioEntry[] }) {
                   onMouseEnter={() => setActive(i)}
                   onFocus={() => setActive(i)}
                   aria-current={i === active ? 'true' : undefined}
-                  className={`group grid grid-cols-[2.25rem_minmax(0,1fr)] items-baseline py-1 transition-colors ${
+                  className={`group grid grid-cols-[2.25rem_minmax(0,1fr)] items-baseline py-2.5 transition-colors ${
                     i === active ? 'text-ink' : 'text-ink-3 hover:text-ink'
                   }`}
                 >

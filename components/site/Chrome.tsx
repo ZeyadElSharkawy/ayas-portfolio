@@ -7,7 +7,7 @@ const navLink = 'text-ink-2 transition-colors hover:text-ink';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur-sm">
+    <header className="site-header sticky top-0 z-40 border-b border-line bg-paper/90">
       <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-8">
         <Link href="/" className="whitespace-nowrap font-display text-[20px] leading-none sm:text-[22px]">
           Aya Hafez

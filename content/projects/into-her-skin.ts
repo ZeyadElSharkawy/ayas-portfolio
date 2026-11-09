@@ -14,6 +14,13 @@ export const intoHerSkin: Project = {
     { label: 'Techniques', value: 'Print design, draping, pleating' },
   ],
   palette: ['#9C97D6', '#3E5BC4', '#F5E15A', '#D7E84B', '#D4A63A'],
+  home: {
+    contain: true,
+    more: [
+      { kind: 'clean', id: 'hoop-2', alt: 'Sitting in the hoop, one arm raised' },
+      { kind: 'clean', id: 'hoop-5', alt: 'Shahenda seated in the hoop, the lime mesh draped across her body' },
+    ],
+  },
   cover: { kind: 'clean', id: 'hoop-1', alt: 'Shahenda inside the aerial hoop in the printed blue bodysuit with lime mesh drapes' },
   hero: { kind: 'clean', id: 'hoop-5', alt: 'Shahenda seated in the hoop, the lime mesh draped across her body' },
   sections: [
@@ -32,7 +39,8 @@ export const intoHerSkin: Project = {
     },
     {
       kind: 'research',
-            media: [
+      label: 'Moodboards and colour palette',
+      media: [
         { kind: 'clean', id: 'palette', alt: 'Colour palette: lavender, blues and gold, with aerial figures' },
         { kind: 'clean', id: 'moodboard-concept', alt: 'Concept moodboard' },
         { kind: 'clean', id: 'moodboard-identity', alt: 'Identity moodboard' },
@@ -99,8 +107,8 @@ export const intoHerSkin: Project = {
       kind: 'film',
       title: 'Film',
       media: [
+        { kind: 'video', id: 'film', title: 'Into Her Skin, the film' },
         { kind: 'video', id: 'interview', title: 'Interview with Shahenda Bahgat' },
-        { kind: 'clean', id: 'storyboard', alt: 'Storyboard for the film' },
       ],
     },
   ],
@@ -113,6 +121,6 @@ export const intoHerSkin: Project = {
   questions: [
     'Course name, year and supervisors.',
     'Photographer credit, and are there higher-resolution originals of the hoop photos? We only have them as booklet pages.',
-    'The booklet links a teaser video by QR code. Can we get that file?',
+    'Is the Final Video on Drive the teaser the booklet links by QR code, or is there another file?',
   ],
 };

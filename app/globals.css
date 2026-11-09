@@ -143,3 +143,18 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* The skills strip under the home hero (SkillsMarquee): two copies of the list, moved by one copy's width. */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+
+/* Home: the header is see-through over the hero, so its glows run up behind it. Folio sets
+   data-in-work on <html> in the same frame as it hands the page colours to the work, so the header
+   turns solid in the colour the page is fading from and fades along with it. No transition of its own. */
+html:not([data-in-work]) body:has([data-home-hero]) .site-header {
+  background-color: transparent;
+  border-color: transparent;
+}
