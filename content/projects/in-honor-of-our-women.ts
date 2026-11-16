@@ -54,7 +54,7 @@ export const inHonorOfOurWomen: Project = {
     },
     {
       kind: 'construction',
-      title: 'Making',
+      title: 'Visual Board',
       media: [
         { kind: 'page', doc: 'booklet', n: 57, alt: 'Process: embroidery hoop, pink and red thread cones and fabric samples' },
       ],

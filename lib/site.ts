@@ -50,7 +50,7 @@ export function projectJsonLd(project: Project, image: string) {
     '@type': 'CreativeWork',
     name: project.title,
     ...(project.titleAr && { alternateName: project.titleAr }),
-    headline: project.tagline,
+    ...(project.tagline && { headline: project.tagline }),
     description: project.summary,
     url: absolute(`/work/${project.slug}`),
     image: absolute(image),

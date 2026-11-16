@@ -3,6 +3,8 @@
 //   • `image`: the original picture embedded in the PDF, by its order on the page (clean and sharpest)
 //   • `rect`:  a region of a high-resolution page render, for pages that are flattened or vector.
 //              `erase` paints over titles and labels with the page's own background first.
+//              `spread` sets the facing page beside it; `lift` takes a drawing off its white page.
+//              `src` crops a picture file instead of a PDF page; `mend` covers a mark on a shaded ground.
 //
 //   npm run media:clean [slug]   → public/media/<slug>/clean/*, content/clean.generated.json
 
@@ -58,6 +60,129 @@ async function embeddedImages(doc, n) {
   return images;
 }
 
+/** A page with the one facing it set beside it, for work she laid across a spread. `seam` is the fraction of the facing page's inner edge left out (its white trim line). */
+async function spreadPng(slug, file, n, seam) {
+  const out = path.join(CACHE, `${slug}-${path.basename(file).replace(/\W+/g, '-')}-p${n}-spread.png`);
+  if (fs.existsSync(out)) return out;
+  const [left, right] = [await pagePng(slug, file, n), await pagePng(slug, file, n + 1)];
+  const { width, height } = await sharp(left).metadata();
+  const skip = Math.round(width * seam);
+  const facing = await sharp(right).extract({ left: skip, top: 0, width: width - skip, height }).png().toBuffer();
+  await sharp({ create: { width: width * 2 - skip, height, channels: 3, background: '#fff' } })
+    .composite([{ input: left, left: 0, top: 0 }, { input: facing, left: width, top: 0 }])
+    .png()
+    .toFile(out);
+  return out;
+}
+
+/**
+ * Lifts a drawing off its white page: the paper around it turns transparent, the paper inside its
+ * outlines stays. `gap` (px of the page render) is how wide a break in a line may be before the
+ * paper behind it counts as outside too.
+ */
+async function liftOff(png, gap = 0) {
+  const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { width: w, height: h } = info;
+  const n = w * h;
+  /** How far a pixel is from white paper, 0–255. */
+  const ink = (i) => 255 - Math.min(data[i * 4], data[i * 4 + 1], data[i * 4 + 2]);
+  const paper = new Uint8Array(n);
+  for (let i = 0; i < n; i++) paper[i] = ink(i) < 18 ? 1 : 0;
+
+  // Lines thickened by `gap`, so the flood below can't slip through breaks in a sketchy outline.
+  let open = paper;
+  if (gap) {
+    const walls = await sharp(Buffer.from(paper.map((p) => (p ? 0 : 255))), { raw: { width: w, height: h, channels: 1 } })
+      .blur(Math.max(0.3, gap / 2))
+      .threshold(8)
+      .raw()
+      .toBuffer();
+    open = new Uint8Array(n);
+    for (let i = 0; i < n; i++) open[i] = paper[i] && !walls[i] ? 1 : 0;
+  }
+
+  // Flood in from the edges.
+  const outside = new Uint8Array(n);
+  let frontier = [];
+  const enter = (i, allowed) => {
+    if (allowed[i] && !outside[i]) {
+      outside[i] = 1;
+      frontier.push(i);
+    }
+  };
+  for (let x = 0; x < w; x++) {
+    enter(x, open);
+    enter((h - 1) * w + x, open);
+  }
+  for (let y = 0; y < h; y++) {
+    enter(y * w, open);
+    enter(y * w + w - 1, open);
+  }
+  const spread = (allowed, rounds = Infinity) => {
+    for (let round = 0; frontier.length && round < rounds; round++) {
+      const from = frontier;
+      frontier = [];
+      for (const i of from) {
+        const x = i % w;
+        if (x > 0) enter(i - 1, allowed);
+        if (x < w - 1) enter(i + 1, allowed);
+        if (i >= w) enter(i - w, allowed);
+        if (i < n - w) enter(i + w, allowed);
+      }
+    }
+  };
+  const reached = [];
+  if (gap) {
+    // Keep every reached pixel as a starting point for growing back up to the lines.
+    const from = frontier;
+    spread(open);
+    for (let i = 0; i < n; i++) if (outside[i]) reached.push(i);
+    frontier = reached.length ? reached : from;
+    spread(paper, gap * 2);
+  } else {
+    spread(paper);
+  }
+
+  // Clear the paper; where a line meets it, keep the line's own colour and let its soft edge fade out.
+  const out = Buffer.from(data);
+  for (let i = 0; i < n; i++) {
+    if (outside[i]) {
+      out[i * 4 + 3] = 0;
+      continue;
+    }
+    const x = i % w;
+    const y = (i - x) / w;
+    let edge = false;
+    for (let dy = -1; dy <= 1 && !edge; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        const xx = x + dx;
+        const yy = y + dy;
+        if (xx >= 0 && xx < w && yy >= 0 && yy < h && outside[yy * w + xx]) {
+          edge = true;
+          break;
+        }
+      }
+    }
+    if (!edge) continue;
+    let strongest = i;
+    for (let dy = -2; dy <= 2; dy++) {
+      for (let dx = -2; dx <= 2; dx++) {
+        const xx = x + dx;
+        const yy = y + dy;
+        if (xx < 0 || xx >= w || yy < 0 || yy >= h) continue;
+        const j = yy * w + xx;
+        if (!outside[j] && ink(j) > ink(strongest)) strongest = j;
+      }
+    }
+    if (ink(strongest) < 24) continue;
+    out[i * 4] = data[strongest * 4];
+    out[i * 4 + 1] = data[strongest * 4 + 1];
+    out[i * 4 + 2] = data[strongest * 4 + 2];
+    out[i * 4 + 3] = Math.round(255 * Math.min(1, ink(i) / ink(strongest)));
+  }
+  return sharp(out, { raw: { width: w, height: h, channels: 4 } }).png().toBuffer();
+}
+
 const fraction = (rect, w, h) => {
   const [l, t, r, b] = rect;
   return { left: Math.round(l * w), top: Math.round(t * h), width: Math.round((r - l) * w), height: Math.round((b - t) * h) };
@@ -67,6 +192,27 @@ const fraction = (rect, w, h) => {
 async function fromRender(png, item) {
   const { data, info } = await sharp(png).rotate(item.rotate ?? 0).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width: w, height: h, channels: c } = info;
+  // `mend` covers a mark on a soft, shaded ground: each row runs from the colour at the box's left edge to the colour at its right.
+  for (const rect of item.mend ?? []) {
+    const box = fraction(rect, w, h);
+    const right = box.left + box.width;
+    /** The ground beside the box: a few pixels out, a few rows up and down, averaged so no streaks carry across. */
+    const beside = (x0, y) => {
+      const sum = [0, 0, 0];
+      let count = 0;
+      for (let yy = Math.max(0, y - 3); yy <= Math.min(h - 1, y + 3); yy++) {
+        for (let x = Math.max(0, x0); x < Math.min(w, x0 + 8); x++, count++) for (let k = 0; k < 3; k++) sum[k] += data[(yy * w + x) * c + k];
+      }
+      return sum.map((v) => v / count);
+    };
+    for (let y = box.top; y < box.top + box.height; y++) {
+      const [from, to] = [beside(box.left - 8, y), beside(right, y)];
+      for (let x = box.left; x < right; x++) {
+        const f = (x - box.left + 0.5) / box.width;
+        for (let k = 0; k < 3; k++) data[(y * w + x) * c + k] = Math.round(from[k] + (to[k] - from[k]) * f);
+      }
+    }
+  }
   for (const rect of item.erase ?? []) {
     const box = fraction(rect, w, h);
     // Next to the label, or the page corner where the label sits against the artwork.
@@ -98,8 +244,8 @@ async function fromEmbedded(image, item) {
 }
 
 /** Trims empty margins, then lays the piece on `bg` with a little air around it. */
-async function finish(img, { trim, bg, pad = 0 }) {
-  let out = img;
+async function finish(img, { trim, bg, pad = 0, lift }) {
+  let out = lift ? await liftOff(img, lift === true ? 0 : lift) : img;
   if (trim) out = await sharp(out).trim({ threshold: trim === true ? 12 : trim }).png().toBuffer();
   if (pad) {
     const { width, height } = await sharp(out).metadata();
@@ -163,11 +309,14 @@ for (const { slug, file, items } of sources) {
       if (!onPage.has(item.page)) onPage.set(item.page, await embeddedImages(doc, item.page));
       raw = await fromEmbedded(onPage.get(item.page)[item.image - 1], item);
     } else {
-      raw = await fromRender(await pagePng(slug, path.join('_source', item.file ?? file), item.page), item);
+      const source = path.join('_source', item.src ?? item.file ?? file);
+      // `src` is a picture file of its own (a poster saved as an image), used as it is.
+      const png = item.src ? source : item.spread ? await spreadPng(slug, source, item.page, item.spread) : await pagePng(slug, source, item.page);
+      raw = await fromRender(png, item);
     }
     entry[item.id] = await write(slug, item.id, item.tile ? await mirrorTile(raw) : await finish(raw, item));
     // Transparent pieces: nothing may sit behind them while they load.
-    if (item.round || item.alpha) Object.assign(entry[item.id], { blur: '', color: 'transparent' });
+    if (item.round || item.alpha || item.lift) Object.assign(entry[item.id], { blur: '', color: 'transparent' });
   }
   if (task) await task.destroy();
   console.log(`${slug}: ${items.length} items`);

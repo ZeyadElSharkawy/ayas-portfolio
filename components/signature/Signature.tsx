@@ -23,7 +23,7 @@ export function Signature({ project }: { project: Project }) {
   }
 
   if (slug === 'glacier') {
-    const statement = project.sections.find((s) => s.quote)?.quote?.text ?? project.tagline;
+    const statement = project.sections.find((s) => s.quote)?.quote?.text ?? project.tagline ?? project.title;
     return (
       <GlacierSignature
         statement={statement}

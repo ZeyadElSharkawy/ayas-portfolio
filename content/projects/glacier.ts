@@ -36,9 +36,15 @@ export const glacier: Project = {
     },
     {
       kind: 'research',
-      label: 'Colour palette and moodboard',
+      label: 'Colour palette',
       media: [
-        { kind: 'clean', id: 'palette', alt: 'Colour palette with snowflake motifs' },
+        { kind: 'clean', id: 'palette', alt: 'Colour palette: five snowflake motifs in navy, ice blue, lavender, white and grey' },
+      ],
+    },
+    {
+      kind: 'research',
+      label: 'Moodboard',
+      media: [
         { kind: 'clean', id: 'moodboard-inspiration', alt: 'Inspiration moodboard of figure-skating costumes' },
         { kind: 'clean', id: 'moodboard-element', alt: 'Element moodboard of ice, frost and snow textures' },
       ],
@@ -47,40 +53,24 @@ export const glacier: Project = {
       kind: 'construction',
       chapter: 'development',
       label: 'Jewellery',
+      // Her own words, from the Glacier jewellery poster below.
       body: [
-        'The jewellery is an important addition to the garment, complementing it with engraved ice cracks and gemstones set into the piece.',
-        'The headpiece was sketched and drawn technically, carved in wax, then cut, refined, sanded, textured and engraved. It was cast, set with rhinestones, soldered to its band, cleaned with ultrasound and acid, galvanised and silver-plated.',
+        'This silver-plated brass headpiece features intricate ice crack motifs, symbolizing the fragile and fractured mental state of children under the immense pressure to be perfect. Just as ice cracks under stress, these delicate patterns represent the negative impact that unrealistic expectations and the relentless pursuit of flawlessness have on young minds.',
+        'The piece serves as an important reminder of the vulnerability beneath the surface, highlighting how the burden of perfection can fracture a child’s well-being and creativity, urging us to recognize these hidden struggles.',
       ],
+      // Her three jewellery posters, shown whole: here the poster is the work.
       media: [
-        { kind: 'clean', id: 'jewel-sketch', alt: 'Sketch of the headpiece: a crescent with a snowflake stone on a double band' },
-        { kind: 'clean', id: 'jewel-drawing', alt: 'Technical drawing of the headpiece in perspective and from the side' },
-        { kind: 'clean', id: 'jewel-wax', alt: 'The wax model: cut from the block, refined and sanded, then textured and engraved with cracks' },
-        { kind: 'clean', id: 'jewel-cast', alt: 'The cast piece, before and after adding rhinestones' },
-        { kind: 'clean', id: 'jewel-solder', alt: 'Soldering the piece to its double headband' },
-        { kind: 'clean', id: 'jewel-final', alt: 'The silver-plated headpiece, worn' },
-        { kind: 'image', id: '1362d509', alt: 'The silver ice-crack headpiece on the skater, with the white look' },
+        { kind: 'clean', id: 'jewel-poster-mood', alt: 'Jewellery moodboard poster, “Spinning Out Ice”: figure skaters, skate charms and gold headpieces around notes on element, fashion, jewellery and a blue and teal colour palette' },
+        { kind: 'clean', id: 'jewel-poster-process', alt: 'Jewellery process poster in six steps: sketching and technical drawing, wax, casting, soldering, cleaning and galvanization, silver plating, ending with the headpiece worn' },
+        { kind: 'clean', id: 'jewel-poster-final', alt: 'Glacier jewellery poster: the silver-plated headpiece with ice-crack engraving and blue stones, shown alone and worn, with her text about it' },
       ],
     },
     {
       kind: 'sketches',
       title: 'Sketches',
       media: [
-        { kind: 'clean', id: 'sketch-1', alt: 'First design sketches' },
-        { kind: 'clean', id: 'sketch-2', alt: 'Second and third design sketches' },
-      ],
-    },
-    {
-      kind: 'sketches',
-      label: 'Final design',
-      body: [
-        'Look 1 is all white, for elegance, topped with blue shimmering snowflake embroidery and gemstones. Elastic, clipped sleeves come off during the performance to reveal Look 2.',
-        'Look 2 is all dark blue and conveys the harm perfectionism does to mental health, with ice cracks embroidered across the skirt.',
-      ],
-      media: [
-        { kind: 'clean', id: 'draft-blue', alt: 'First draft: the dark-blue look with slashed ice cracks' },
-        { kind: 'clean', id: 'draft-white', alt: 'First draft: the white look with snowflake embroidery' },
-        { kind: 'clean', id: 'final-blue', alt: 'Final design: the dark-blue look' },
-        { kind: 'clean', id: 'final-white', alt: 'Final design: the white look with removable sleeves' },
+        { kind: 'clean', id: 'final-blue', alt: 'The dark-blue look, with ice cracks across the bodice and skirt' },
+        { kind: 'clean', id: 'final-white', alt: 'The white look, with snowflake embroidery and removable sleeves' },
       ],
     },
     {

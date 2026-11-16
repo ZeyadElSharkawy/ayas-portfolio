@@ -239,7 +239,7 @@ function MotifAssembly() {
           <h3 className="label" style={{ color: TEAL }}>
             Element breakdown
           </h3>
-          <p className="mt-2 max-w-lg text-xl font-medium leading-snug">One rosette, built from six simple elements, the way she drew it apart in her booklet.</p>
+          <p className="mt-2 max-w-lg text-xl font-medium leading-snug">Visual inspiration taken from old Cairo to graphic illustration.</p>
         </div>
         <button type="button" onClick={() => {
             cue('whoosh');

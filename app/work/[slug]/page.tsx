@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: PageProps<'/work/[slug]'>): P
       ...openGraphBase,
       type: 'article',
       title: `${project.title} · Aya Hafez`,
-      description: project.tagline,
+      description: project.tagline ?? project.summary,
       url: `/work/${project.slug}`,
       images: [{ url: largest(cover), width: cover.width, height: cover.height, alt: cover.alt }],
     },

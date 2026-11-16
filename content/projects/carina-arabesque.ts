@@ -59,7 +59,6 @@ export const carinaArabesque: Project = {
     {
       kind: 'materials',
       title: 'Motifs, fabrics & embroidery',
-      body: ['After importing the design onto the embroidery app, these show the progress of changing colours, adjusting thread tension and editing the final design.'],
       media: [
         { kind: 'clean', id: 'motifs', alt: "Three arabesque motifs drawn for the collection" },
         { kind: 'clean', id: 'elements', alt: "Element breakdown: the motifs taken apart into their individual shapes" },
@@ -88,7 +87,6 @@ export const carinaArabesque: Project = {
       title: 'Range & colourways',
       media: [
         { kind: 'clean', id: 'prototypes', alt: "Prototypes on the mannequin" },
-        { kind: 'clean', id: 'pants', alt: "Pants embroidery variations" },
         { kind: 'clean', id: 'jackets', alt: "Proposed jacket variations" },
         { kind: 'clean', id: 'range', alt: "Full range in all colourways" },
         { kind: 'clean', id: 'embroidery-colours', alt: "Embroidery colour variations on the jacket" },

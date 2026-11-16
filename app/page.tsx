@@ -20,8 +20,7 @@ export default function Home() {
               {statement}
             </h2>
             <p className="max-w-sm text-[15px] leading-relaxed text-ink-2 md:col-span-4 md:self-end md:justify-self-end" style={rise(50)}>
-              Aya Hafez is a fashion designer based in Berlin, ranked first in Fashion Design for four semesters at the German International University. Garments, digital fashion
-              and styling.
+              Aya Hafez is a fashion designer based in Berlin. First-ranked student at the German International University.
             </p>
           </section>
         </SeamParallax>

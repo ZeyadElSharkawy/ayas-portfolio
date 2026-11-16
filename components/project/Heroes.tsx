@@ -14,17 +14,7 @@ type HeroProps = { project: Project; images: ResolvedImage[] };
 
 const POSTER_ICONS = ['oud', 'dancers', 'tabla', 'tambourine', 'cymbals', 'gramophone', 'oud-2', 'seller', 'sax', 'raised', 'keys'];
 
-/** Stitched appliqué patches, as on a tent-maker's panel, for the frame. */
-const PANEL = `url("data:image/svg+xml,${encodeURIComponent(
-  "<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'>" +
-    "<rect width='48' height='48' fill='#C2531F'/><rect x='48' width='48' height='48' fill='#5A1F33'/><rect y='48' width='48' height='48' fill='#E89A2C'/><rect x='48' y='48' width='48' height='48' fill='#123F30'/>" +
-    "<g fill='#F6E3CF'><rect x='14' y='14' width='20' height='20'/><rect x='14' y='14' width='20' height='20' transform='rotate(45 24 24)'/></g>" +
-    "<path d='M72 10L86 24L72 38L58 24Z' fill='#E89A2C'/><path d='M24 58L38 72L24 86L10 72Z' fill='#5A1F33'/>" +
-    "<g fill='#E89A2C'><rect x='62' y='62' width='20' height='20'/><rect x='62' y='62' width='20' height='20' transform='rotate(45 72 72)'/></g>" +
-    "<g fill='none' stroke='#F6E3CF' stroke-width='1' stroke-dasharray='3 3'><rect x='3' y='3' width='42' height='42'/><rect x='51' y='3' width='42' height='42'/><rect x='3' y='51' width='42' height='42'/><rect x='51' y='51' width='42' height='42'/></g></svg>",
-)}")`;
-
-/** Her khayamiya as the frame: the photo set into a tent-maker's panel, with a swatch of the real appliqué pinned on. */
+/** The photo on the page as it is, with a swatch of her khayamiya appliqué pinned on, above a frieze of her poster's icons. */
 function CulturalEchoesHero({ project, images: [photo, swatch] }: HeroProps) {
   return (
     <header>
@@ -38,9 +28,10 @@ function CulturalEchoesHero({ project, images: [photo, swatch] }: HeroProps) {
         </div>
         <div className="flex justify-center lg:col-span-6 lg:justify-end">
           <div className="relative">
-            <div className="p-6 sm:p-12" style={{ backgroundImage: PANEL, backgroundSize: '96px 96px', backgroundPosition: 'center' }}>
-              <div className="aspect-[2/3] w-[min(62vw,calc(58svh*0.667))] outline-2 outline-offset-4 outline-dashed outline-[#F6E3CF]">
-                <Picture image={photo} sizes="(min-width: 1024px) 30vw, 62vw" priority className="h-full" />
+            {/* Both photos are prints with the same cream edge, the big one's scaled to its size. */}
+            <div className="w-[min(72vw,calc(68svh*0.667))] border-[10px] border-[#F6E3CF] sm:border-[14px]">
+              <div className="aspect-[2/3]">
+                <Picture image={photo} sizes="(min-width: 1024px) 34vw, 72vw" priority className="h-full" />
               </div>
             </div>
             <div className="absolute -bottom-5 -left-6 w-[30%] -rotate-6 border-[6px] border-[#F6E3CF] sm:-left-14">
@@ -123,7 +114,7 @@ function ArabiaHero({ project, images }: HeroProps) {
     <header className="mx-auto grid max-w-[1440px] grid-cols-[minmax(0,1fr)] items-center gap-8 px-4 pt-8 sm:px-8 lg:pt-10 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
       <div>
         <h1 className="font-display text-[clamp(2.75rem,1.5rem+5vw,6.5rem)] leading-[0.98] tracking-[-0.01em]">{project.title}</h1>
-        <p className="mt-6 max-w-[34ch] text-lg font-medium leading-snug sm:text-xl">{project.tagline}</p>
+        {project.tagline && <p className="mt-6 max-w-[34ch] text-lg font-medium leading-snug sm:text-xl">{project.tagline}</p>}
       </div>
       <div className="flex items-end justify-center gap-2 sm:gap-4 xl:justify-end">
         {images.map((img, i) => (

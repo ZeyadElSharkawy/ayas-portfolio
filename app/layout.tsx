@@ -56,7 +56,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${sansFallback.variable} ${arabic.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable} ${sansFallback.variable} ${arabic.variable}`}>
       <body className="min-h-dvh flex flex-col">
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50 focus:bg-paper focus:px-3 focus:py-2">
           Skip to content

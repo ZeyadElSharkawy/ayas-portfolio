@@ -51,8 +51,8 @@ export interface Project {
   title: string;
   titleAr?: string;
   category: CategoryId;
-  /** Short line under the title. */
-  tagline: string;
+  /** Short line under the title. Left out where the title stands alone. */
+  tagline?: string;
   /** One paragraph for the index, project intro and meta descriptions. */
   summary: string;
   year?: number;

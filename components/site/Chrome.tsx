@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { contact } from '@/content/cv';
+import { HomeLink } from './HomeLink';
 
 const navLink = 'text-ink-2 transition-colors hover:text-ink';
 
@@ -9,11 +10,11 @@ export function SiteHeader() {
   return (
     <header className="site-header sticky top-0 z-40 border-b border-line bg-paper/90">
       <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-8">
-        <Link href="/" className="whitespace-nowrap font-display text-[20px] leading-none sm:text-[22px]">
+        <HomeLink className="whitespace-nowrap font-display text-[20px] leading-none sm:text-[22px]">
           Aya Hafez
-        </Link>
+        </HomeLink>
         <nav aria-label="Main" className="flex items-center gap-2.5 whitespace-nowrap text-[12px] sm:gap-7 sm:text-[13px]">
-          <Link href="/" className={navLink}>Work</Link>
+          <Link href="/#work" className={navLink}>Work</Link>
           <Link href="/about" className={navLink}>About</Link>
           <a href={contact.cvPdf} download className={navLink}>
             CV <span aria-hidden>↓</span>

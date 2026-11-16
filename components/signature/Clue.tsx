@@ -28,9 +28,6 @@ export function ClueSignature({ photos, screens }: { photos: LoupePhoto[]; scree
         <h2 id="clue-sig-title" className="mt-2 font-display text-headline">
           From the shoot to the storefront
         </h2>
-        <p className="mt-3 max-w-xl text-lg leading-relaxed" style={{ color: 'rgb(43 43 43 / 0.8)' }}>
-          Her edit on the light table: look closer with the loupe. Then pick up the phone, where the same photos run the clue.eg store.
-        </p>
       </div>
 
       <LightTable photos={photos} />

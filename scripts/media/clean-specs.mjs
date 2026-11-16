@@ -112,7 +112,8 @@ export const sources = [
     slug: 'glacier',
     file: '1 Selected Works/1.3 Glacier/1.3 glacier booklet.pdf',
     items: [
-      { id: 'palette', page: 8, rect: [0.04, 0.28, 0.98, 0.84] },
+      // Her palette runs across pages 8 and 9: five snowflakes, one on the fold.
+      { id: 'palette', page: 8, spread: 0.004, rect: [0.02, 0.27, 0.99, 0.855] },
       { id: 'moodboard-inspiration', page: 10, rect: [0.1, 0.12, 0.95, 0.92] },
       // The cracked-ice photo from her moodboard, as the surface of the hero.
       { id: 'ice', page: 11, rect: [0.1, 0.135, 0.94, 0.33] },
@@ -123,8 +124,9 @@ export const sources = [
       { id: 'sketch-2', page: 13, rect: [0.1, 0.08, 0.95, 0.95], erase: [[0.05, 0.1, 0.3, 0.16], [0.45, 0.14, 0.7, 0.2]] },
       { id: 'draft-blue', page: 14, rect: [0.6, 0.1, 0.98, 0.97] },
       { id: 'draft-white', page: 15, rect: [0.05, 0.08, 0.5, 0.97] },
-      { id: 'final-blue', page: 16, rect: [0.6, 0.1, 0.98, 0.97] },
-      { id: 'final-white', page: 17, rect: [0.05, 0.08, 0.5, 0.97] },
+      // The two looks as figures on their own, off the page (and without the page's ice-crack ornament).
+      { id: 'final-blue', page: 16, rect: [0.6, 0.1, 0.9, 0.955], erase: [[0.81, 0.1, 1, 0.175], [0.655, 0.205, 0.69, 0.228]], lift: true, trim: true, pad: 0.02 },
+      { id: 'final-white', page: 17, rect: [0.045, 0.0925, 0.485, 0.965], lift: true, trim: true, pad: 0.02 },
       { id: 'cotton', page: 18, rect: [0.56, 0.17, 0.92, 0.83] },
       { id: 'oxford', page: 19, rect: [0.43, 0.115, 0.9, 0.525] },
       { id: 'voile', page: 19, rect: [0.08, 0.6, 0.64, 0.94] },
@@ -135,6 +137,10 @@ export const sources = [
       { id: 'wilcom', page: 22, rect: [0.08, 0.42, 0.92, 0.83] },
       { id: 'pattern-1', page: 30, rect: [0.58, 0.06, 0.9, 0.47] },
       { id: 'pattern-2', page: 30, rect: [0.58, 0.5, 0.9, 0.88] },
+      // Her three jewellery posters, saved as pictures: the viewer's grey edge cut off, her student number covered.
+      { id: 'jewel-poster-mood', src: '1 Selected Works/1.3 Glacier/f46503f9-03f4-4eb8-bfc5-7c904ec0a6ac.jpg', rect: [0.008, 0, 0.992, 1], erase: [[0.3826, 0.9375, 0.6826, 0.965]] },
+      { id: 'jewel-poster-process', src: '1 Selected Works/1.3 Glacier/846bbfa8-ac1f-4575-bea5-c8d6b0f722ea.jpg', rect: [0.008, 0, 0.992, 0.992], mend: [[0.0439, 0.0025, 0.2544, 0.0225]] },
+      { id: 'jewel-poster-final', src: '1 Selected Works/1.3 Glacier/e59c9ac9-1635-4e56-b7a7-e93a8b4b2728.jpg', rect: [0.008, 0, 0.992, 1] },
       // Her jewellery process page, step by step, without its step titles.
       { id: 'jewel-sketch', page: 33, rect: [0, 0.012, 0.31, 0.175] },
       { id: 'jewel-drawing', page: 33, rect: [0.673, 0.03, 0.98, 0.212] },

@@ -5,7 +5,6 @@ export const arabia: Project = {
   title: 'Arabia Collection',
   category: 'digital-fashion',
   year: 2026,
-  tagline: 'Chic modesty, rebuilt from the shirt pattern up.',
   summary:
     'A three-look digital collection built in CLO3D. It deconstructs the classic shirt pattern into a structural hero piece and infuses it with Arabic calligraphy and an earthy palette. Rooted in "chic modesty", it speaks to hijabi and non-hijabi women alike, and argues that modesty is a powerful fashion statement.',
   facts: [

@@ -39,11 +39,17 @@ export const intoHerSkin: Project = {
     },
     {
       kind: 'research',
-      label: 'Moodboards and colour palette',
+      label: 'Moodboards',
       media: [
-        { kind: 'clean', id: 'palette', alt: 'Colour palette: lavender, blues and gold, with aerial figures' },
         { kind: 'clean', id: 'moodboard-concept', alt: 'Concept moodboard' },
         { kind: 'clean', id: 'moodboard-identity', alt: 'Identity moodboard' },
+      ],
+    },
+    {
+      kind: 'research',
+      label: 'Colour palette',
+      media: [
+        { kind: 'clean', id: 'palette', alt: 'Colour palette: lavender, blues and gold, with aerial figures' },
       ],
     },
     {
